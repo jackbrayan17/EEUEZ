@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EEUEZ — Conception & Développement de Logiciels</title>
+  <meta name="description" content="EEUEZ: solutions logicielles (EEUEZ-Market, EEUEZ-Job, EEUEZ-Menu, Zevaba). Conception, développement, intégration et support. Plateformes pour commerçants, livreurs, recruteurs et intellectuels." />
+  <meta name="keywords" content="EEUEZ, développement logiciel, SaaS, eeuez-market, eeuez-job, eeuez-menu, zevaba, réseaux sociaux, apps, livraison, e-commerce, menu digital" />
+  <meta name="author" content="EEUEZ" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="EEUEZ — Conception & Développement de Logiciels" />
+  <meta property="og:description" content="Solutions logicielles pour e-commerce, recrutement, menus digitaux et réseau social pour intellectuels." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://eeuez-market.com/" />
+  <meta property="og:image" content="/assets/eeuez-og.png" />
+
+  <!-- Structured data / JSON-LD -> améliore le SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "EEUEZ",
+    "url": "https://eeuez-market.com/",
+    "logo": "https://eeuez-market.com/assets/logo.png",
+    "sameAs": [
+      "https://facebook.com/eeuez",
+      "https://twitter.com/eeuez"
+    ],
+    "description": "EEUEZ conçoit des solutions logicielles: eeuez-market, eeuez-job, eeuez-menu, zevaba.",
+    "contactPoint": [{"@type":"ContactPoint","telephone":"+237600000000","contactType":"customer service"}]
+  }
+  </script>
+
+  <style>
+    /* --------------------------------------------------
+       Variables de couleurs (conformes à la demande)
+       -------------------------------------------------- */
+    :root{
+      --primary-color: #1a1a1a; /* Gris/noir foncé */
+      --secondary-color: #f0f0f0; /* Gris clair */
+      --accent-color: #4a90e2; /* Bleu accent */
+      --white: #ffffff;
+      --text-dark: #333333;
+      --text-light: #666666;
+
+      --max-width: 1200px;
+      --radius: 14px;
+      --easing: cubic-bezier(.22,.9,.35,1);
+    }
+
+    /* --------------------------------------------------
+       Reset & Base
+       -------------------------------------------------- */
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: Inter, 'Segoe UI', Roboto, system-ui, -apple-system;
+      background:var(--secondary-color);
+      color:var(--text-dark);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+
+    a{color:inherit;text-decoration:none}
+
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+
+    /* --------------------------------------------------
+       Navigation
+       -------------------------------------------------- */
+    header{position:fixed;top:16px;left:0;right:0;z-index:80;display:flex;justify-content:center;pointer-events:none}
+    .nav{pointer-events:auto;background:linear-gradient(180deg, rgba(26,26,26,0.92), rgba(26,26,26,0.82));
+        color:var(--white);border-radius:999px;padding:10px 18px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(6px);box-shadow:0 6px 30px rgba(10,10,10,0.45)}
+
+    .brand{display:flex;gap:12px;align-items:center}
+    .brand img{width:36px;height:36px;object-fit:cover;border-radius:8px}
+    .brand .name{font-weight:700;letter-spacing:0.4px}
+
+    nav ul{display:flex;gap:12px;align-items:center;list-style:none;margin:0;padding:0}
+    nav a{padding:8px 12px;border-radius:10px;transition:all .25s var(--easing);font-weight:600;color:var(--white);opacity:.95}
+    nav a:hover{background:rgba(255,255,255,0.06);transform:translateY(-2px);color:var(--accent-color)}
+
+    .cta{background:linear-gradient(90deg,var(--accent-color),#6fb3ff);color:var(--white);padding:8px 14px;border-radius:10px;font-weight:700;box-shadow:0 6px 18px rgba(74,144,226,0.18)}
+
+    /* Hamburger for small screens */
+    .burger{display:none;background:transparent;border:0;color:var(--white);font-size:20px}
+
+    /* --------------------------------------------------
+       Sections shared styles
+       -------------------------------------------------- */
+    section{padding:100px 0;min-height:60vh;display:flex;align-items:center}
+    section.alt{background:var(--primary-color);color:var(--white)}
+    section .inner{width:100%}
+
+    h1,h2,h3{margin:0 0 12px 0}
+    p.lead{margin:0 0 18px 0;font-size:1.05rem;color:var(--text-light)}
+
+    /* --------------------------------------------------
+       Hero
+       -------------------------------------------------- */
+    .hero{padding:140px 0 120px;position:relative;overflow:hidden}
+    .hero .split{display:flex;gap:36px;align-items:center}
+    .hero .left{flex:1}
+    .hero .right{flex:1;display:flex;justify-content:center}
+    .device-card{width:330px;max-width:48vw;background:var(--secondary-color);border-radius:20px;padding:18px;box-shadow:0 18px 40px rgba(10,10,10,0.25);transform:translateY(0);transition:transform .6s var(--easing)}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#222,rgba(255,255,255,0.02));font-weight:700;color:var(--accent-color);font-size:13px}
+
+    .hero h1{font-size:2.1rem;line-height:1.02}
+    .hero p{max-width:55ch}
+
+    /* Animated background shapes */
+    .shape{position:absolute;border-radius:50%;filter:blur(40px);opacity:.18;mix-blend-mode:screen}
+    .shape.s1{width:420px;height:420px;background:var(--accent-color);right:-120px;top:-60px}
+    .shape.s2{width:300px;height:300px;background:#6d6dff;left:-80px;bottom:-60px}
+
+    /* --------------------------------------------------
+       Services grid
+       -------------------------------------------------- */
+    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .card{background:var(--white);border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(10,10,10,0.06);transition:transform .28s var(--easing),box-shadow .28s var(--easing)}
+    .card:hover{transform:translateY(-8px);box-shadow:0 14px 40px rgba(10,10,10,0.09)}
+    .card .icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-weight:800;background:linear-gradient(180deg,rgba(74,144,226,0.14),rgba(74,144,226,0.06));color:var(--accent-color)}
+
+    /* Steps / How it works */
+    .steps{display:flex;gap:18px;flex-wrap:wrap}
+    .step{flex:1;min-width:210px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px;color:var(--white)}
+    .step .num{font-size:28px;font-weight:800;color:var(--accent-color)}
+
+    /* Partners / logos */
+    .partners{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+    .partner{width:110px;height:48px;background:rgba(255,255,255,0.04);display:grid;place-items:center;border-radius:10px}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .quote{background:var(--white);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(10,10,10,0.06)}
+
+    /* Pricing */
+    .pricing{display:flex;gap:18px;flex-wrap:wrap}
+    .plan{flex:1;min-width:220px;background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.96));padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.04)}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .contact-card{background:var(--white);padding:18px;border-radius:12px}
+
+    /* Footer */
+    footer{padding:40px 0;background:linear-gradient(180deg,var(--primary-color),#0f0f0f);color:var(--white)}
+
+    /* --------------------------------------------------
+       Animations: fade-in on scroll
+       -------------------------------------------------- */
+    .reveal{opacity:0;transform:translateY(18px);transition:all .7s var(--easing)}
+    .reveal.in{opacity:1;transform:none}
+
+    /* --------------------------------------------------
+       Responsive
+       -------------------------------------------------- */
+    @media(max-width:900px){
+      .hero .split{flex-direction:column-reverse}
+      .services{grid-template-columns:1fr}
+      .testimonials{grid-template-columns:1fr}
+      header{top:10px}
+    }
+
+    @media(max-width:560px){
+      .container{padding:0 14px}
+      .hero h1{font-size:1.6rem}
+      .brand .name{display:none}
+      .burger{display:block}
+      nav ul{display:none}
+      .device-card{width:280px}
+      .contact-grid{grid-template-columns:1fr}
+    }
+
+    /* Smallest phones (360x450) - ensure readability */
+    @media(max-width:380px){
+      :root{--max-width:380px}
+      .hero{padding:80px 0}
+      section{padding:70px 0}
+      .hero p{font-size:0.95rem}
+      .card{padding:12px}
+      .brand img{width:30px;height:30px}
+    }
+
+    /* Micro interactions */
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-weight:700}
+    .btn-outline{border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--white)}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav container" role="navigation" aria-label="Navigation principale">
+      <div class="brand">
+        <img src="logo.png" alt="Logo EEUEZ" />
+        <div class="name">EEUEZ</div>
+      </div>
+
+      <nav aria-label="Menu principal">
+        <ul>
+          <li><a href="#hero">Accueil</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#how">Fonctionnement</a></li>
+          <li><a href="#partners">Partenaires</a></li>
+          <li><a href="#pricing">Forfaits</a></li>
+          <li><a href="#testimonials">Avis</a></li>
+          <li><a href="#blog">Ressources</a></li>
+          <li><a href="#contact" class="cta">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section id="hero" class="hero alt">
+      <div class="shape s1" aria-hidden="true"></div>
+      <div class="shape s2" aria-hidden="true"></div>
+      <div class="container inner">
+        <div class="split">
+          <div class="left reveal">
+            <span class="badge">Solutions logicielles — EEUEZ</span>
+            <h1>On conçoit les outils qui relient <span style="color:var(--accent-color)">clients</span>, <span style="color:var(--accent-color)">marchands</span> et <span style="color:var(--accent-color)">livreurs</span>.</h1>
+            <p class="lead">EEUEZ fabrique des produits digitaux élégants et robustes: <strong>EEUEZ-Market</strong>, <strong>EEUEZ-Job</strong>, <strong>EEUEZ-Menu</strong>, et <strong>Zevaba</strong>. Conception, développement, et scalabilité—pour l'Afrique et au-delà.</p>
+            <p><a href="#pricing" class="btn cta">Découvrir les forfaits</a> <a href="#contact" class="btn btn-outline">Nous contacter</a></p>
+          </div>
+
+          <div class="right reveal">
+            <div class="device-card" role="img" aria-label="Aperçu produit">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+                <strong>eeuez-menu.com</strong>
+                <small style="color:var(--text-light)">SaaS</small>
+              </div>
+              <div style="height:300px;background:linear-gradient(180deg,rgba(74,144,226,0.08),rgba(0,0,0,0.02));border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text-dark)">
+                Aperçu visuel interactif
+              </div>
+              <div style="display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center">
+                <small style="color:var(--text-light)">Disponible sur web & WhatsApp</small>
+                <div style="display:flex;gap:8px">
+                  <button class="btn" style="background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:8px">Demo</button>
+                  <button class="btn cta">Essayer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services-section">
+      <div class="container reveal">
+        <h2>Nos services</h2>
+        <p class="lead">Des plateformes pensées pour l'usage réel: commerce, recrutement, menus digitaux et communauté intellectuelle.</p>
+
+        <div class="services" style="margin-top:18px">
+          <article class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="icon">M</div>
+              <div>
+                <h3>EEUEZ-Market</h3>
+                <p style="color:var(--text-light)">Marketplace qui connecte clients, marchands et coursiers — gestion des vitrines, panier, paiements et livraison optimisée.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="icon">J</div>
+              <div>
+                <h3>EEUEZ-Job</h3>
+                <p style="color:var(--text-light)">Portail de recrutement qui met en relation recruteurs et talents avec des outils de matching et de gestion des candidatures.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="icon">🍽</div>
+              <div>
+                <h3>EEUEZ-Menu</h3>
+                <p style="color:var(--text-light)">Menus digitaux QR, commandes en ligne et intégration WhatsApp pour une expérience simple et rapide en restauration.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div class="icon">Z</div>
+              <div>
+                <h3>Zevaba</h3>
+                <p style="color:var(--text-light)">Réseau social pour intellectuels: partage d'articles, débats, groupes privés et monétisation du savoir.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works / Steps -->
+    <section id="how" class="alt">
+      <div class="container reveal">
+        <h2 style="color:var(--white)">Comment ça marche</h2>
+        <p class="lead" style="color:var(--text-light)">Simple, modulaire et extensible — trois étapes pour lancer votre service.</p>
+
+        <div class="steps" style="margin-top:18px">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Plan & Design</h3>
+            <p>Atelier produit, maquettage et validation UX/UI. Nous respectons les habitudes tout en ouvrant la voie au moderne.</p>
+          </div>
+
+          <div class="step">
+            <div class="num">2</div>
+            <h3>Build & Integrate</h3>
+            <p>Développement backend robuste, API REST/GraphQL, intégration paiements et messagerie (WhatsApp, SMS).</p>
+          </div>
+
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Scale & Support</h3>
+            <p>Déploiement, supervision 24/7, optimisation des coûts et suivi analytique pour décision rapide.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="partners">
+      <div class="container reveal">
+        <h2>Ils nous font confiance</h2>
+        <p class="lead">Partenaires, supermarchés et restaurants qui utilisent nos solutions.</p>
+
+        <div class="partners" style="margin-top:18px">
+          <div class="partner">Dovv</div>
+          <div class="partner">Santa Lucia</div>
+          <div class="partner">Renaprov</div>
+          <div class="partner">Local Biz</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="alt">
+      <div class="container reveal">
+        <h2 style="color:var(--white)">Forfaits</h2>
+        <p class="lead" style="color:var(--text-light)">Des offres claires: du MVP pour commencer aux plans sur-mesure pour les entreprises.</p>
+
+        <div class="pricing" style="margin-top:18px">
+          <div class="plan">
+            <h3>Starter</h3>
+            <p class="lead">Idéal pour tester — présence en ligne, 5 produits, QR codes.</p>
+            <p style="font-weight:800;font-size:20px">5 000 FCFA/mois</p>
+            <p><a href="#contact" class="btn cta">Souscrire</a></p>
+          </div>
+
+          <div class="plan">
+            <h3>Growth</h3>
+            <p class="lead">Pour boutiques en pleine croissance — intégration paiements & livraison.</p>
+            <p style="font-weight:800;font-size:20px">Sur devis</p>
+            <p><a href="#contact" class="btn cta">Demander un devis</a></p>
+          </div>
+
+          <div class="plan">
+            <h3>Entreprise</h3>
+            <p class="lead">Personnalisé: API, SLA, support 24/7, optimisation AI.</p>
+            <p style="font-weight:800;font-size:20px">Contact commercial</p>
+            <p><a href="#contact" class="btn cta">Contact</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+      <div class="container reveal">
+        <h2>Avis</h2>
+        <p class="lead">Ce que nos clients disent — la confiance, pas les slogans.</p>
+
+        <div class="testimonials" style="margin-top:18px">
+          <div class="quote">
+            <p style="font-style:italic">"EEUEZ a transformé notre prise de commande — simple, rapide et fiable."</p>
+            <p style="font-weight:700;margin-top:10px">— Restaurant La Terrasse</p>
+          </div>
+
+          <div class="quote">
+            <p style="font-style:italic">"Matching candidat / poste jamais aussi précis."</p>
+            <p style="font-weight:700;margin-top:10px">— Recruteur, Renaprov</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog / Resources (SEO content hub) -->
+    <section id="blog" class="alt">
+      <div class="container reveal">
+        <h2 style="color:var(--white)">Ressources & Blog</h2>
+        <p class="lead" style="color:var(--text-light)">Articles, guides et études de cas pour aider nos utilisateurs et booster votre référencement.</p>
+        <div style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <article class="card"> <h4>Comment lancer un marketplace</h4><p class="lead">Checklist technique & business.</p></article>
+          <article class="card"> <h4>Menus QR qui convertissent</h4><p class="lead">Optimisation menu & parcours client.</p></article>
+          <article class="card"> <h4>Optimiser le matching des CV</h4><p class="lead">Data, scoring et tests A/B.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container reveal">
+        <h2>Contact</h2>
+        <p class="lead">Prêt à lancer ? Laisse-nous un message — on prépare le plan, tu gardes la vision.</p>
+
+        <div class="contact-grid" style="margin-top:18px">
+          <form class="contact-card" onsubmit="handleForm(event)">
+            <label for="name">Nom</label>
+            <input id="name" name="name" required style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" />
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)"></textarea>
+
+            <p><button type="submit" class="btn cta">Envoyer</button></p>
+          </form>
+
+          <aside class="contact-card" style="display:flex;flex-direction:column;gap:10px;justify-content:center">
+            <div><strong>Adresse</strong><br/>Mobile Essos, Yaoundé, Cameroun</div>
+            <div><strong>Téléphone</strong><br/>+237 6XX XXX XXX</div>
+            <div><strong>Email</strong><br/>contact@eeuez.com</div>
+            <div style="margin-top:10px"><a href="#" style="color:var(--accent-color);font-weight:700">Demander une démo</a></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <strong>EEUEZ</strong><br/>
+        © <span id="year"></span> — Conception & Développement
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="#">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Set dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const href = a.getAttribute('href');
+        if(href.length>1){
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    },{threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Mobile menu toggling
+    const burger = document.querySelector('.burger');
+    burger && burger.addEventListener('click', ()=>{
+      const nav = document.querySelector('nav ul');
+      const open = nav.style.display === 'flex';
+      nav.style.display = open ? 'none' : 'flex';
+      burger.setAttribute('aria-expanded', String(!open));
+    });
+
+    // Simple form handler (demo)
+    function handleForm(e){
+      e.preventDefault();
+      const name = e.target.name.value || '—';
+      const email = e.target.email.value || '—';
+      const message = e.target.message.value || '—';
+      // Ici tu peux remplacer par un fetch vers ton endpoint.
+      alert(`Merci ${name} — nous avons reçu ton message. Nous reviendrons à ${email}`);
+      e.target.reset();
+    }
+
+    // Tiny progressive enhancement: keyboard focus style
+    document.body.addEventListener('keydown', (e)=>{
+      if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
+    });
+  </script>
+
+</body>
+</html>
