@@ -5,54 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EEUEZ — Conception & Développement de Logiciels</title>
   <meta name="description" content="EEUEZ : solutions logicielles (EEUEZ-Market, EEUEZ-Job, EEUEZ-Menu, Zevaba). Conception, développement, intégration et support pour entreprises & restaurateurs." />
-  <meta name="keywords" content="EEUEZ, développement logiciel, SaaS, marketplace, menu QR, recrutement, e-commerce, livraison, Cameroom, Africa tech" />
+  <meta name="keywords" content="EEUEZ, développement logiciel, SaaS, marketplace, menu QR, recrutement, e-commerce, livraison, Cameroun, Africa tech" />
   <meta name="author" content="EEUEZ" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://eeuez.com/" />
-  <link rel="alternate" href="https://eeuez.com/" hreflang="fr" />
-  <link rel="alternate" href="https://eeuez.com/en/" hreflang="en" />
-
   <link rel="icon" href="/assets/logo.png">
   <link rel="preload" href="/assets/logo.png" as="image">
-
-  <!-- Open Graph & Twitter Card -->
-  <meta property="og:title" content="EEUEZ — Conception & Développement de Logiciels" />
-  <meta property="og:description" content="Solutions logicielles pour e-commerce, recrutement, menus digitaux et réseau social pour intellectuels." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://eeuez.com/" />
-  <meta property="og:image" content="https://eeuez.com/assets/eeuez-og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@eeuez" />
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@graph":[
-      {
-        "@type":"Organization",
-        "name":"EEUEZ",
-        "url":"https://eeuez.com/",
-        "logo":"https://eeuez.com/assets/logo.png",
-        "sameAs":["https://facebook.com/eeuez","https://twitter.com/eeuez"],
-        "contactPoint":[{"@type":"ContactPoint","telephone":"+237600000000","contactType":"customer service"}]
-      },
-      {
-        "@type":"WebSite",
-        "url":"https://eeuez-market.com/",
-        "name":"EEUEZ",
-        "potentialAction":{"@type":"SearchAction","target":"https://eeuez-market.com/?s={search_term_string}","query-input":"required name=search_term_string"}
-      },
-      {
-        "@type":"BreadcrumbList",
-        "itemListElement":[
-          {"@type":"ListItem","position":1,"name":"Accueil","item":"https://eeue.com/"},
-          {"@type":"ListItem","position":2,"name":"Services","item":"https://eeuez.com/#services"}
-        ]
-      }
-    ]
-  }
-  </script>
 
   <style>
     /* ---------------------------
@@ -71,10 +28,11 @@
       --shadow-sm: 0 6px 18px rgba(15,23,42,0.06);
       --shadow-lg: 0 20px 50px rgba(15,23,42,0.12);
       --focus: 3px;
+      --nav-height: 68px;
       color-scheme: light;
+      font-family: Inter, 'Segoe UI', Roboto, system-ui, -apple-system;
     }
 
-    /* Dark theme variables (switched by [data-theme="dark"] on <html>) */
     html[data-theme="dark"]{
       --bg: #0b0c0f;
       --card: #0f1316;
@@ -85,12 +43,11 @@
       color-scheme: dark;
     }
 
-    /* Base reset */
+    /* Reset / Base */
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: Inter, 'Segoe UI', Roboto, system-ui, -apple-system;
       background:linear-gradient(180deg,var(--bg),color-mix(in srgb, var(--bg) 80%, black 2%));
       color:var(--text);
       -webkit-font-smoothing:antialiased;
@@ -98,21 +55,41 @@
       line-height:1.45;
       -webkit-tap-highlight-color: transparent;
       transition:background .4s var(--ease), color .25s var(--ease);
+      min-height:100vh;
     }
-
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block;height:auto}
+    button{font-family:inherit}
 
-    .container{max-width:var(--max-w);margin:0 auto;padding:0 18px}
+    /* Container */
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 20px}
+
+    /* Skip link for accessibility */
+    .skip-link{
+      position:fixed;left:12px;top:12px;background:var(--card);padding:8px 12px;border-radius:8px;z-index:9999;transform:translateY(-120%);
+      transition:transform .18s var(--ease);
+      box-shadow:var(--shadow-sm);
+    }
+    .skip-link:focus{transform:none;outline:3px solid rgba(74,144,226,0.16)}
 
     /* Header / nav */
-    header{position:fixed;top:14px;left:0;right:0;z-index:120;display:flex;justify-content:center;pointer-events:none}
-    .nav{pointer-events:auto;display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.3));backdrop-filter:blur(6px);padding:8px;border-radius:999px;box-shadow:var(--shadow-sm)}
+    header{
+      position:fixed;inset:0 0 auto 0;padding:12px 0;z-index:120;pointer-events:none;
+      display:flex;justify-content:center;
+    }
+    .nav{
+      pointer-events:auto;display:flex;align-items:center;gap:12px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.3));
+      backdrop-filter:blur(6px);padding:8px;border-radius:999px;box-shadow:var(--shadow-sm);
+      width:min(calc(100% - 28px), var(--max-w));
+      align-items:center;
+      transition:background .25s;
+    }
     html[data-theme="dark"] .nav{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))}
 
     .brand{display:flex;gap:10px;align-items:center}
-    .brand img{width:40px;height:40px;border-radius:10px;object-fit:cover}
-    .brand .name{font-weight:800;letter-spacing:0.3px}
+    .brand img{width:42px;height:42px;border-radius:10px;object-fit:cover}
+    .brand .name{font-weight:800;letter-spacing:0.3px;font-size:1rem}
 
     nav{display:flex;align-items:center;gap:10px}
     nav ul{display:flex;gap:8px;align-items:center;list-style:none;margin:0;padding:4px}
@@ -120,8 +97,8 @@
     nav a:hover, nav a:focus{transform:translateY(-2px);color:var(--accent);outline:none}
     .cta{background:linear-gradient(90deg,var(--accent),#6fb3ff);color:#fff;padding:8px 14px;border-radius:10px;font-weight:800;box-shadow:var(--shadow-sm)}
 
-    /* Small controls (theme + lang) */
-    .controls{display:flex;gap:8px;align-items:center}
+    /* Controls */
+    .controls{display:flex;gap:8px;align-items:center;margin-left:auto}
     .toggle{
       display:inline-flex;align-items:center;gap:8px;padding:6px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--glass);cursor:pointer;font-weight:700;
       transition:transform .15s,var(--ease);
@@ -130,94 +107,122 @@
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
     /* Hamburger */
-    .burger{display:none;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer;font-size:20px}
+    .burger{
+      display:none;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer;font-size:20px;margin-left:6px;
+    }
+
+    /* Mobile menu (off-canvas full panel from top) */
+    .mobile-menu{
+      position:fixed;inset:0;z-index:140;display:flex;flex-direction:column;padding:90px 20px 24px;gap:18px;
+      background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 96%, black 1%));
+      transform:translateY(-110%);transition:transform .28s var(--ease);box-shadow:var(--shadow-lg);visibility:hidden;opacity:0;
+    }
+    .mobile-menu.open{transform:translateY(0);visibility:visible;opacity:1}
+    .mobile-menu nav ul{flex-direction:column;gap:10px}
+    .mobile-menu a{display:block;padding:12px;border-radius:10px}
+    .mobile-menu .mobile-footer{margin-top:auto;display:flex;gap:8px;align-items:center}
 
     /* Hero */
-    .hero{padding:160px 0 80px;position:relative;overflow:hidden}
-    .split{display:flex;gap:30px;align-items:center}
-    .left{flex:1}
+    main{padding-top:calc(var(--nav-height) + 22px)}
+    .hero{padding:120px 0 56px;position:relative;overflow:hidden}
+    .split{display:flex;gap:30px;align-items:center;align-content:stretch}
+    .left{flex:1;min-width:260px}
     .right{flex:1;display:flex;justify-content:center}
-    .device{width:340px;max-width:48vw;border-radius:18px;padding:16px;background:var(--card);box-shadow:var(--shadow-lg);transition:transform .6s var(--ease)}
+    .device{
+      width:min(420px,48vw);border-radius:18px;padding:16px;background:var(--card);box-shadow:var(--shadow-lg);transition:transform .6s var(--ease);
+      display:flex;flex-direction:column;gap:12px;min-height:220px;
+      aspect-ratio: 9/12;
+    }
     .device:hover{transform:translateY(-6px)}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,0,0,0.05),rgba(255,255,255,0.02));font-weight:800;color:var(--accent);font-size:13px}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,0,0,0.03),rgba(255,255,255,0.02));font-weight:800;color:var(--accent);font-size:13px}
 
-    h1{font-size:2.2rem;line-height:1.02;margin:12px 0}
+    h1{font-size:clamp(1.25rem, 3.6vw, 2.2rem);line-height:1.02;margin:12px 0}
     p.lead{margin:8px 0 18px;color:var(--muted);max-width:65ch}
 
     /* Services grid */
-    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
     .card{
       display:flex;gap:12px;align-items:flex-start;background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow-sm);transition:transform .22s var(--ease),box-shadow .22s var(--ease);
       border:1px solid rgba(0,0,0,0.03);
     }
-    .card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(2,6,23,0.12)}
+    .card:hover{transform:translateY(-6px);box-shadow:0 28px 60px rgba(2,6,23,0.08)}
     .card .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(74,144,226,0.02))}
     .card h3{margin:0;font-size:1.05rem}
     .card p{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
 
     /* Partners */
     .partners{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .partner{width:110px;height:48px;background:var(--card);display:grid;place-items:center;border-radius:10px;box-shadow:var(--shadow-sm);font-weight:700;color:var(--muted)}
+    .partner{min-width:90px;height:48px;background:var(--card);display:grid;place-items:center;border-radius:10px;box-shadow:var(--shadow-sm);font-weight:700;color:var(--muted);padding:6px}
 
     /* Steps */
     .steps{display:flex;gap:12px;flex-wrap:wrap}
     .step{flex:1;min-width:190px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:14px;border-radius:12px;color:var(--text);box-shadow:var(--shadow-sm)}
     .num{font-size:22px;font-weight:900;color:var(--accent)}
 
-    /* Responsive adjustments */
-    @media(max-width:980px){
-      .split{flex-direction:column-reverse;align-items:stretch}
-      .hero{padding:120px 0 60px}
-      .services{grid-template-columns:1fr}
-    }
+    /* Pricing */
+    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
 
-    @media(max-width:560px){
-      header{top:10px}
-      .brand .name{display:none}
-      .burger{display:block}
-      nav ul{display:none}
-      .device{width:280px}
-      .container{padding:0 14px}
-      .hero{padding:100px 0 48px}
-    }
+    /* Testimonials & blog */
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
 
-    /* Micro phones: 360px & 320px */
-    @media(max-width:380px){
-      :root{--max-w:360px}
-      h1{font-size:1.5rem}
-      .device{width:240px;padding:12px;border-radius:10px}
-      .card{padding:10px}
-      .card .logo{width:48px;height:48px}
-      .controls .toggle{padding:6px 8px;font-size:13px}
-    }
-    @media(max-width:330px){
-      :root{--max-w:320px}
-      h1{font-size:1.25rem}
-      .badge{padding:4px 8px;font-size:12px}
-    }
+    /* Contact grid */
+    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:12px}
+    .contact-card input,.contact-card textarea{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
+    .contact-card label{font-weight:700}
 
-    /* Focus & accessibility */
-    .user-is-tabbing a:focus,.user-is-tabbing button:focus{
-      outline: 3px solid rgba(74,144,226,0.18);
-      outline-offset:3px;border-radius:8px;
-    }
+    /* Footer */
+    footer{border-top:1px solid rgba(0,0,0,0.04);margin-top:32px;padding:18px 0;background:transparent}
 
     /* Buttons */
     .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer;border:0}
     .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
-    .btn:active{transform:translateY(1px)}
-
-    /* Subtle hover for touch (makes hover more tactile) */
-    @media (hover: none){
-      .card:hover{transform:none;box-shadow:var(--shadow-sm)}
-    }
 
     /* Small reveal animations */
     .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
     .reveal.in{opacity:1;transform:none}
+
+    /* Micro adjustments */
+    @media(max-width:980px){
+      .split{flex-direction:column-reverse;align-items:stretch}
+      .hero{padding:100px 0 40px}
+      .device{width:100%;max-width:520px}
+      .contact-grid{grid-template-columns:1fr}
+      header{padding:10px 0}
+      .brand .name{display:inline-block}
+    }
+    @media(max-width:760px){
+      .burger{display:block}
+      nav ul{display:none}
+      .controls{gap:6px}
+      .container{padding:0 16px}
+      .device{aspect-ratio: 3/4; min-height:220px}
+    }
+    @media(max-width:420px){
+      :root{--max-w:420px}
+      h1{font-size:clamp(1rem,5.5vw,1.4rem)}
+      .brand .name{display:none}
+      .badge{padding:4px 8px;font-size:12px}
+      .nav{padding:6px}
+      .mobile-menu{padding-top:84px}
+      .card{padding:10px}
+    }
+    @media (hover: none){
+      .card:hover{transform:none;box-shadow:var(--shadow-sm)}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{transition:none!important;animation:none!important}
+    }
+
+    /* Focus outlines for keyboard users */
+    .user-is-tabbing a:focus,.user-is-tabbing button:focus{
+      outline: 3px solid rgba(74,144,226,0.18);
+      outline-offset:3px;border-radius:8px;
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
 
   <header>
     <div class="nav container" role="navigation" aria-label="Navigation principale">
@@ -226,7 +231,8 @@
         <div class="name">EEUEZ</div>
       </div>
 
-      <nav aria-label="Menu principal">
+      <!-- Desktop nav (hidden on small screens via CSS) -->
+      <nav aria-label="Menu principal" id="desktopNav">
         <ul>
           <li><a href="#hero">Accueil</a></li>
           <li><a href="#services">Services</a></li>
@@ -254,17 +260,40 @@
           <span id="themeLabel">Auto</span>
         </button>
 
-        <button class="burger" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn">☰</button>
+        <!-- Mobile burger -->
+        <button class="burger" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn" aria-label="Ouvrir le menu">☰</button>
       </div>
     </div>
   </header>
 
-  <main>
+  <!-- Mobile menu panel -->
+  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menu mobile">
+    <nav aria-label="Menu mobile principal">
+      <ul>
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how">Fonctionnement</a></li>
+        <li><a href="#partners">Partenaires</a></li>
+        <li><a href="#pricing">Forfaits</a></li>
+        <li><a href="#testimonials">Avis</a></li>
+        <li><a href="#blog">Ressources</a></li>
+        <li><a href="#contact" class="cta">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="mobile-footer">
+      <button id="langToggleMobile" class="toggle" title="Langue"><span id="langMobileLabel">FR</span></button>
+      <button id="themeToggleMobile" class="toggle" title="Thème"><span id="themeMobileLabel">Auto</span></button>
+      <div style="margin-left:auto"><a href="#contact" class="btn cta">Contact</a></div>
+    </div>
+  </div>
+
+  <main id="main-content">
     <!-- Hero -->
-    <section id="hero" class="hero alt" aria-labelledby="hero-title">
+    <section id="hero" class="hero alt reveal" aria-labelledby="hero-title">
       <div class="container">
         <div class="split">
-          <div class="left reveal" id="hero-left">
+          <div class="left" id="hero-left">
             <span class="badge">Solutions logicielles — EEUEZ</span>
             <h1 id="hero-title">On conçoit les outils qui relient <span style="color:var(--accent)">clients</span>, <span style="color:var(--accent)">marchands</span> & <span style="color:var(--accent)">livreurs</span>.</h1>
             <p class="lead" id="hero-desc">EEUEZ fabrique des produits digitaux élégants et robustes : <strong>EEUEZ-Market</strong>, <strong>EEUEZ-Job</strong>, <strong>EEUEZ-Menu</strong> et <strong>Zevaba</strong>. Conception, développement et scalabilité — pour l'Afrique et au-delà.</p>
@@ -274,13 +303,13 @@
             </p>
           </div>
 
-          <div class="right reveal" id="hero-right">
+          <div class="right" id="hero-right">
             <div class="device" role="img" aria-label="Aperçu produit">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
                 <strong id="device-title">eeuez-menu.com</strong>
                 <small style="color:var(--muted)">SaaS</small>
               </div>
-              <div style="height:300px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted);background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(0,0,0,0.01))">
+              <div style="flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted);border-radius:12px;background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(0,0,0,0.01))">
                 Aperçu visuel interactif
               </div>
               <div style="display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center">
@@ -297,15 +326,15 @@
     </section>
 
     <!-- Services -->
-    <section id="services" class="services-section" aria-labelledby="services-title">
-      <div class="container reveal" id="servicesContainer">
+    <section id="services" class="services-section reveal" aria-labelledby="services-title">
+      <div class="container" id="servicesContainer">
         <h2 id="services-title">Nos services</h2>
         <p class="lead" id="services-lead">Des plateformes pensées pour l'usage réel : commerce, recrutement, menus digitaux et communauté intellectuelle.</p>
 
         <div class="services" id="servicesGrid">
           <!-- Service: Market -->
           <article class="card" data-key="market" role="article" aria-labelledby="srv-market-title">
-           <a href="https://www.eeuez-market.com/"> <div class="logo">
+            <a href="https://www.eeuez-market.com/"><div class="logo">
               <img src="/assets/eeuez-market.png" alt="Logo EEUEZ-Market" width="48" height="48" loading="lazy">
             </div></a>
             <div>
@@ -316,7 +345,7 @@
 
           <!-- Service: Job -->
           <article class="card" data-key="job" role="article" aria-labelledby="srv-job-title">
-           <a href="https://eeuez-job.com/"> <div class="logo">
+            <a href="https://eeuez-job.com/"><div class="logo">
               <img src="/assets/eeuez-job.png" alt="Logo EEUEZ-Job" width="48" height="48" loading="lazy">
             </div></a>
             <div>
@@ -327,7 +356,7 @@
 
           <!-- Service: Menu -->
           <article class="card" data-key="menu" role="article" aria-labelledby="srv-menu-title">
-           <a href="https://eeuez-menu.com/"> <div class="logo">
+            <a href="https://eeuez-menu.com/"><div class="logo">
               <img src="/assets/eeuez-menu.png" alt="Logo EEUEZ-Menu" width="48" height="48" loading="lazy">
             </div></a>
             <div>
@@ -351,8 +380,8 @@
     </section>
 
     <!-- How it works -->
-    <section id="how" class="alt" aria-labelledby="how-title">
-      <div class="container reveal">
+    <section id="how" class="alt reveal" aria-labelledby="how-title">
+      <div class="container">
         <h2 id="how-title" style="color:var(--text)">Comment ça marche</h2>
         <p class="lead" style="color:var(--muted)">Simple, modulaire et extensible — trois étapes pour lancer votre service.</p>
 
@@ -379,8 +408,8 @@
     </section>
 
     <!-- Partners -->
-    <section id="partners" aria-labelledby="partners-title">
-      <div class="container reveal">
+    <section id="partners" class="reveal" aria-labelledby="partners-title">
+      <div class="container">
         <h2 id="partners-title">Ils nous font confiance</h2>
         <p class="lead">Partenaires, supermarchés et restaurants qui utilisent nos solutions.</p>
         <div class="partners" style="margin-top:12px">
@@ -393,27 +422,27 @@
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="alt" aria-labelledby="pricing-title">
-      <div class="container reveal">
+    <section id="pricing" class="alt reveal" aria-labelledby="pricing-title">
+      <div class="container">
         <h2 id="pricing-title">Forfaits</h2>
         <p class="lead" style="color:var(--muted)">Des offres claires: du MVP pour commencer aux plans sur-mesure pour les entreprises.</p>
 
-        <div class="pricing" style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
-          <div class="plan card" style="min-width:200px">
+        <div class="pricing">
+          <div class="plan card" style="min-width:0">
             <h3>Starter</h3>
             <p class="lead">Idéal pour tester — présence en ligne, 5 produits, QR codes.</p>
             <p style="font-weight:800;font-size:20px">5 000 FCFA/mois</p>
             <p><a href="#contact" class="btn cta">Souscrire</a></p>
           </div>
 
-          <div class="plan card" style="min-width:200px">
+          <div class="plan card" style="min-width:0">
             <h3>Growth</h3>
             <p class="lead">Pour boutiques en pleine croissance — intégration paiements & livraison.</p>
             <p style="font-weight:800;font-size:20px">Sur devis</p>
             <p><a href="#contact" class="btn cta">Demander un devis</a></p>
           </div>
 
-          <div class="plan card" style="min-width:200px">
+          <div class="plan card" style="min-width:0">
             <h3>Entreprise</h3>
             <p class="lead">Personnalisé: API, SLA, support 24/7, optimisation AI.</p>
             <p style="font-weight:800;font-size:20px">Contact commercial</p>
@@ -424,12 +453,12 @@
     </section>
 
     <!-- Testimonials -->
-    <section id="testimonials" aria-labelledby="testimonials-title">
-      <div class="container reveal">
+    <section id="testimonials" class="reveal" aria-labelledby="testimonials-title">
+      <div class="container">
         <h2 id="testimonials-title">Avis</h2>
         <p class="lead">Ce que nos clients disent — la confiance, pas les slogans.</p>
 
-        <div class="testimonials" style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="testimonials" style="margin-top:12px">
           <div class="quote card">
             <p style="font-style:italic">"EEUEZ a transformé notre prise de commande — simple, rapide et fiable."</p>
             <p style="font-weight:800;margin-top:8px">— Restaurant La Terrasse</p>
@@ -444,11 +473,11 @@
     </section>
 
     <!-- Blog -->
-    <section id="blog" class="alt" aria-labelledby="blog-title">
-      <div class="container reveal">
+    <section id="blog" class="alt reveal" aria-labelledby="blog-title">
+      <div class="container">
         <h2 id="blog-title" style="color:var(--text)">Ressources & Blog</h2>
         <p class="lead" style="color:var(--muted)">Articles, guides et études de cas pour aider nos utilisateurs et booster votre référencement.</p>
-        <div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <div class="blog-grid">
           <article class="card"> <h4>Comment lancer un marketplace</h4><p class="lead">Checklist technique & business.</p></article>
           <article class="card"> <h4>Menus QR qui convertissent</h4><p class="lead">Optimisation menu & parcours client.</p></article>
           <article class="card"> <h4>Optimiser le matching des CV</h4><p class="lead">Data, scoring et tests A/B.</p></article>
@@ -457,21 +486,21 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-title">
-      <div class="container reveal">
+    <section id="contact" class="reveal" aria-labelledby="contact-title">
+      <div class="container">
         <h2 id="contact-title">Contact</h2>
         <p class="lead">Prêt à lancer ? Laisse-nous un message — on prépare le plan, tu gardes la vision.</p>
 
-        <div class="contact-grid" style="margin-top:12px;display:grid;grid-template-columns:1fr 320px;gap:12px">
+        <div class="contact-grid" style="margin-top:12px">
           <form class="contact-card card" onsubmit="handleForm(event)" aria-label="Formulaire de contact">
             <label for="name">Nom</label>
-            <input id="name" name="name" required style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" />
+            <input id="name" name="name" required />
 
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" required style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" />
+            <input id="email" name="email" type="email" required />
 
             <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)"></textarea>
+            <textarea id="message" name="message" rows="5"></textarea>
 
             <p><button type="submit" class="btn cta">Envoyer</button></p>
           </form>
@@ -501,20 +530,21 @@
     </div>
   </footer>
 
-  <script defer>
-    // --- Utilities & Small progressive enhancements ---
+  <script>
+    // --- Small progressive enhancements ---
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Smooth internal scroll
+    // Smooth internal scroll (works for desktop & mobile)
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', (e)=>{
         const href = a.getAttribute('href');
         if(href.length>1){
-          e.preventDefault();
           const target = document.querySelector(href);
-          target && target.scrollIntoView({behavior:'smooth',block:'start'});
-          // close mobile menu if open
-          closeMobileMenu();
+          if(target){
+            e.preventDefault();
+            target.scrollIntoView({behavior:'smooth',block:'start'});
+            closeMobileMenu();
+          }
         }
       });
     });
@@ -527,66 +557,96 @@
     },{threshold:0.12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // — Mobile Menu Toggle —
+    // MOBILE MENU: use class toggles (robust)
     const burger = document.getElementById('burgerBtn');
-    const navUl = document.querySelector('nav ul');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function openMobileMenu(){
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden','false');
+      burger.setAttribute('aria-expanded','true');
+      document.documentElement.classList.add('menu-open');
+      // trap scroll
+      document.body.style.overflow = 'hidden';
+      // focus first link for accessibility
+      requestAnimationFrame(()=> mobileMenu.querySelector('a')?.focus());
+    }
     function closeMobileMenu(){
-      if(window.innerWidth <= 560 && navUl) { navUl.style.display = 'none'; burger.setAttribute('aria-expanded','false'); }
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden','true');
+      burger.setAttribute('aria-expanded','false');
+      document.documentElement.classList.remove('menu-open');
+      document.body.style.overflow = '';
     }
     burger && burger.addEventListener('click', ()=>{
-      if(!navUl) return;
-      const open = navUl.style.display === 'flex';
-      navUl.style.display = open ? 'none' : 'flex';
-      navUl.style.flexDirection = window.innerWidth <= 560 ? 'column' : 'row';
-      burger.setAttribute('aria-expanded', String(!open));
+      const isOpen = mobileMenu.classList.contains('open');
+      (isOpen ? closeMobileMenu() : openMobileMenu());
     });
-    window.addEventListener('resize', closeMobileMenu);
-    closeMobileMenu();
+    // close on ESC
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeMobileMenu();
+      if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
+    });
+    // close on resize (desktop)
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth > 760) closeMobileMenu();
+    });
+    // close on outside click (when open)
+    document.addEventListener('click', (e)=>{
+      if(mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !burger.contains(e.target)){
+        closeMobileMenu();
+      }
+    });
 
-    // — Simple form handler (demo) —
+    // Simple form handler (demo)
     function handleForm(e){
       e.preventDefault();
       const name = e.target.name.value || '—';
       const email = e.target.email.value || '—';
-      // here you can call fetch to your endpoint
+      // TODO: POST to server endpoint
       alert(`Merci ${name} — nous avons reçu ton message. Nous reviendrons à ${email}`);
       e.target.reset();
     }
     window.handleForm = handleForm;
 
-    // — Theme toggle (light/dark/auto) —
+    // THEME toggle (light/dark/auto) - robust
     const themeToggle = document.getElementById('themeToggle');
     const themeLabel = document.getElementById('themeLabel');
-    const stored = localStorage.getItem('eeuez:theme'); // 'light'|'dark'|'auto'
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const themeMobileLabel = document.getElementById('themeMobileLabel');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const applyTheme = (mode) => {
+    function applyTheme(mode){
       if(mode === 'auto'){
         document.documentElement.removeAttribute('data-theme');
         themeLabel.textContent = 'Auto';
+        themeMobileLabel && (themeMobileLabel.textContent = 'Auto');
       } else {
         document.documentElement.setAttribute('data-theme', mode);
         themeLabel.textContent = mode === 'dark' ? 'Dark' : 'Light';
+        themeMobileLabel && (themeMobileLabel.textContent = mode === 'dark' ? 'Dark' : 'Light');
       }
-      themeToggle.setAttribute('aria-pressed', String(mode !== 'auto'));
       localStorage.setItem('eeuez:theme', mode);
-    };
-    // initialize
-    applyTheme(stored || 'auto');
+      themeToggle?.setAttribute('aria-pressed', String(mode !== 'auto'));
+      themeToggleMobile?.setAttribute('aria-pressed', String(mode !== 'auto'));
+    }
+    // initial
+    (function initTheme(){
+      const stored = localStorage.getItem('eeuez:theme') || 'auto';
+      if(stored === 'dark' || (stored === 'auto' && prefersDark)) document.documentElement.setAttribute('data-theme','dark');
+      applyTheme(stored);
+    })();
     themeToggle && themeToggle.addEventListener('click', ()=>{
-      const current = localStorage.getItem('eeuez:theme') || 'auto';
-      const next = current === 'auto' ? (prefersDark ? 'light' : 'dark') : (current === 'dark' ? 'light' : (current === 'light' ? 'auto' : 'auto'));
+      const cur = localStorage.getItem('eeuez:theme') || 'auto';
+      const next = cur === 'auto' ? (prefersDark ? 'light' : 'dark') : (cur === 'dark' ? 'light' : (cur === 'light' ? 'auto' : 'auto'));
       applyTheme(next);
     });
+    themeToggleMobile && themeToggleMobile.addEventListener('click', ()=> themeToggle?.click());
 
-    // On load: if auto + prefers dark, set data-theme for initial paint to avoid flash
-    (function quickThemePaint(){
-      const s = localStorage.getItem('eeuez:theme') || 'auto';
-      if(s === 'dark' || (s === 'auto' && prefersDark)) document.documentElement.setAttribute('data-theme','dark');
-    })();
-
-    // — Language toggle (FR/EN) — swap texts for services
+    // LANGUAGE toggle (FR/EN) — swap texts for services
     const langToggle = document.getElementById('langToggle');
+    const langToggleMobile = document.getElementById('langToggleMobile');
     const langLabel = document.getElementById('langLabel');
+    const langMobileLabel = document.getElementById('langMobileLabel');
+
     const textBundle = {
       fr: {
         servicesTitle: "Nos services",
@@ -606,12 +666,10 @@
       }
     };
 
-    const storedLang = localStorage.getItem('eeuez:lang') || 'fr';
     function applyLang(l){
       const b = textBundle[l] || textBundle.fr;
       document.getElementById('services-title').textContent = b.servicesTitle;
       document.getElementById('services-lead').textContent = b.servicesLead;
-      // services cards
       document.querySelectorAll('[data-key]').forEach(card=>{
         const key = card.getAttribute('data-key');
         const titleEl = card.querySelector('h3');
@@ -622,30 +680,24 @@
         }
       });
       langLabel.textContent = l.toUpperCase();
-      langToggle.setAttribute('aria-pressed', l !== 'fr');
+      langMobileLabel && (langMobileLabel.textContent = l.toUpperCase());
       localStorage.setItem('eeuez:lang', l);
-      // If you want to swap logos per locale, do it here (example skipped)
+      langToggle.setAttribute('aria-pressed', l !== 'fr');
+      langToggleMobile && langToggleMobile.setAttribute('aria-pressed', l !== 'fr');
     }
-    applyLang(storedLang);
-    langToggle && langToggle.addEventListener('click', ()=>{
+    (function initLang(){ const stored = localStorage.getItem('eeuez:lang') || 'fr'; applyLang(stored); })();
+    langToggle && langToggle.addEventListener('click', ()=> {
       const cur = localStorage.getItem('eeuez:lang') || 'fr';
       applyLang(cur === 'fr' ? 'en' : 'fr');
     });
+    langToggleMobile && langToggleMobile.addEventListener('click', ()=> langToggle?.click());
 
     // Accessibility: keyboard-focus detection
     document.body.addEventListener('keydown', (e)=>{
       if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
     });
 
-    // Close nav on external click (mobile)
-    document.addEventListener('click', (e)=>{
-      if(window.innerWidth <= 560 && navUl && !navUl.contains(e.target) && !burger.contains(e.target)) {
-        navUl.style.display = 'none';
-        burger.setAttribute('aria-expanded','false');
-      }
-    });
-
-    // Improve perceived performance: lazy-load images already via loading="lazy"
+    // Close mobile menu when navigating to anchor (already handled by smooth scroll)
   </script>
 </body>
 </html>
