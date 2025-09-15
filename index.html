@@ -4,198 +4,225 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>EEUEZ — Conception & Développement de Logiciels</title>
-  <meta name="description" content="EEUEZ: solutions logicielles (EEUEZ-Market, EEUEZ-Job, EEUEZ-Menu, Zevaba). Conception, développement, intégration et support. Plateformes pour commerçants, livreurs, recruteurs et intellectuels." />
-  <meta name="keywords" content="EEUEZ, développement logiciel, SaaS, eeuez-market, eeuez-job, eeuez-menu, zevaba, réseaux sociaux, apps, livraison, e-commerce, menu digital" />
+  <meta name="description" content="EEUEZ : solutions logicielles (EEUEZ-Market, EEUEZ-Job, EEUEZ-Menu, Zevaba). Conception, développement, intégration et support pour entreprises & restaurateurs." />
+  <meta name="keywords" content="EEUEZ, développement logiciel, SaaS, marketplace, menu QR, recrutement, e-commerce, livraison, Cameroom, Africa tech" />
   <meta name="author" content="EEUEZ" />
-  <link rel="icon" href="logo.png">
-  <!-- Open Graph -->
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://eeuez.com/" />
+  <link rel="alternate" href="https://eeuez.com/" hreflang="fr" />
+  <link rel="alternate" href="https://eeuez.com/en/" hreflang="en" />
+
+  <link rel="icon" href="/assets/logo.png">
+  <link rel="preload" href="/assets/logo.png" as="image">
+
+  <!-- Open Graph & Twitter Card -->
   <meta property="og:title" content="EEUEZ — Conception & Développement de Logiciels" />
   <meta property="og:description" content="Solutions logicielles pour e-commerce, recrutement, menus digitaux et réseau social pour intellectuels." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://eeuez-market.com/" />
-  <meta property="og:image" content="/assets/eeuez-og.png" />
+  <meta property="og:url" content="https://eeuez.com/" />
+  <meta property="og:image" content="https://eeuez.com/assets/eeuez-og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@eeuez" />
 
-  <!-- Structured data / JSON-LD -> améliore le SEO -->
+  <!-- Structured data -->
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "EEUEZ",
-    "url": "https://eeuez-market.com/",
-    "logo": "https://eeuez-market.com/assets/logo.png",
-    "sameAs": [
-      "https://facebook.com/eeuez",
-      "https://twitter.com/eeuez"
-    ],
-    "description": "EEUEZ conçoit des solutions logicielles: eeuez-market, eeuez-job, eeuez-menu, zevaba.",
-    "contactPoint": [{"@type":"ContactPoint","telephone":"+237600000000","contactType":"customer service"}]
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Organization",
+        "name":"EEUEZ",
+        "url":"https://eeuez.com/",
+        "logo":"https://eeuez.com/assets/logo.png",
+        "sameAs":["https://facebook.com/eeuez","https://twitter.com/eeuez"],
+        "contactPoint":[{"@type":"ContactPoint","telephone":"+237600000000","contactType":"customer service"}]
+      },
+      {
+        "@type":"WebSite",
+        "url":"https://eeuez-market.com/",
+        "name":"EEUEZ",
+        "potentialAction":{"@type":"SearchAction","target":"https://eeuez-market.com/?s={search_term_string}","query-input":"required name=search_term_string"}
+      },
+      {
+        "@type":"BreadcrumbList",
+        "itemListElement":[
+          {"@type":"ListItem","position":1,"name":"Accueil","item":"https://eeue.com/"},
+          {"@type":"ListItem","position":2,"name":"Services","item":"https://eeuez.com/#services"}
+        ]
+      }
+    ]
   }
   </script>
 
   <style>
-    /* --------------------------------------------------
-       Variables de couleurs (conformes à la demande)
-       -------------------------------------------------- */
+    /* ---------------------------
+       Variables & Theme Defaults
+       --------------------------- */
     :root{
-      --primary-color: #1a1a1a; /* Gris/noir foncé */
-      --secondary-color: #f0f0f0; /* Gris clair */
-      --accent-color: #4a90e2; /* Bleu accent */
-      --white: #ffffff;
-      --text-dark: #333333;
-      --text-light: #666666;
-
-      --max-width: 1200px;
-      --radius: 14px;
-      --easing: cubic-bezier(.22,.9,.35,1);
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #4a90e2;
+      --glass: rgba(255,255,255,0.35);
+      --radius: 12px;
+      --max-w: 1200px;
+      --ease: cubic-bezier(.22,.9,.35,1);
+      --shadow-sm: 0 6px 18px rgba(15,23,42,0.06);
+      --shadow-lg: 0 20px 50px rgba(15,23,42,0.12);
+      --focus: 3px;
+      color-scheme: light;
     }
 
-    /* --------------------------------------------------
-       Reset & Base
-       -------------------------------------------------- */
+    /* Dark theme variables (switched by [data-theme="dark"] on <html>) */
+    html[data-theme="dark"]{
+      --bg: #0b0c0f;
+      --card: #0f1316;
+      --text: #e6eef8;
+      --muted: #9aa6b2;
+      --accent: #7fb3ff;
+      --glass: rgba(255,255,255,0.03);
+      color-scheme: dark;
+    }
+
+    /* Base reset */
     *{box-sizing:border-box}
-    html,body{height:100%;}
+    html,body{height:100%}
     body{
       margin:0;
       font-family: Inter, 'Segoe UI', Roboto, system-ui, -apple-system;
-      background:var(--secondary-color);
-      color:var(--text-dark);
+      background:linear-gradient(180deg,var(--bg),color-mix(in srgb, var(--bg) 80%, black 2%));
+      color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
+      line-height:1.45;
+      -webkit-tap-highlight-color: transparent;
+      transition:background .4s var(--ease), color .25s var(--ease);
     }
 
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
 
-    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 18px}
 
-    /* --------------------------------------------------
-       Navigation
-       -------------------------------------------------- */
-    header{position:fixed;top:16px;left:0;right:0;z-index:80;display:flex;justify-content:center;pointer-events:none}
-    .nav{pointer-events:auto;background:linear-gradient(180deg, rgba(26,26,26,0.92), rgba(26,26,26,0.82));
-        color:var(--white);border-radius:999px;padding:10px 18px;display:flex;align-items:center;gap:16px;backdrop-filter:blur(6px);box-shadow:0 6px 30px rgba(10,10,10,0.45)}
+    /* Header / nav */
+    header{position:fixed;top:14px;left:0;right:0;z-index:120;display:flex;justify-content:center;pointer-events:none}
+    .nav{pointer-events:auto;display:flex;align-items:center;gap:12px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.3));backdrop-filter:blur(6px);padding:8px;border-radius:999px;box-shadow:var(--shadow-sm)}
+    html[data-theme="dark"] .nav{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))}
 
-    .brand{display:flex;gap:12px;align-items:center}
-    .brand img{width:36px;height:36px;object-fit:cover;border-radius:8px}
-    .brand .name{font-weight:700;letter-spacing:0.4px}
+    .brand{display:flex;gap:10px;align-items:center}
+    .brand img{width:40px;height:40px;border-radius:10px;object-fit:cover}
+    .brand .name{font-weight:800;letter-spacing:0.3px}
 
-    nav ul{display:flex;gap:12px;align-items:center;list-style:none;margin:0;padding:0}
-    nav a{padding:8px 12px;border-radius:10px;transition:all .25s var(--easing);font-weight:600;color:var(--white);opacity:.95}
-    nav a:hover{background:rgba(255,255,255,0.06);transform:translateY(-2px);color:var(--accent-color)}
+    nav{display:flex;align-items:center;gap:10px}
+    nav ul{display:flex;gap:8px;align-items:center;list-style:none;margin:0;padding:4px}
+    nav a{padding:8px 12px;border-radius:10px;transition:all .18s var(--ease);font-weight:600;color:var(--text);opacity:.95}
+    nav a:hover, nav a:focus{transform:translateY(-2px);color:var(--accent);outline:none}
+    .cta{background:linear-gradient(90deg,var(--accent),#6fb3ff);color:#fff;padding:8px 14px;border-radius:10px;font-weight:800;box-shadow:var(--shadow-sm)}
 
-    .cta{background:linear-gradient(90deg,var(--accent-color),#6fb3ff);color:var(--white);padding:8px 14px;border-radius:10px;font-weight:700;box-shadow:0 6px 18px rgba(74,144,226,0.18)}
+    /* Small controls (theme + lang) */
+    .controls{display:flex;gap:8px;align-items:center}
+    .toggle{
+      display:inline-flex;align-items:center;gap:8px;padding:6px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--glass);cursor:pointer;font-weight:700;
+      transition:transform .15s,var(--ease);
+    }
+    .toggle:active{transform:scale(.98)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* Hamburger for small screens */
-    .burger{display:none;background:transparent;border:0;color:var(--white);font-size:20px}
+    /* Hamburger */
+    .burger{display:none;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer;font-size:20px}
 
-    /* --------------------------------------------------
-       Sections shared styles
-       -------------------------------------------------- */
-    section{padding:100px 0;min-height:60vh;display:flex;align-items:center}
-    section.alt{background:var(--primary-color);color:var(--white)}
-    section .inner{width:100%}
+    /* Hero */
+    .hero{padding:160px 0 80px;position:relative;overflow:hidden}
+    .split{display:flex;gap:30px;align-items:center}
+    .left{flex:1}
+    .right{flex:1;display:flex;justify-content:center}
+    .device{width:340px;max-width:48vw;border-radius:18px;padding:16px;background:var(--card);box-shadow:var(--shadow-lg);transition:transform .6s var(--ease)}
+    .device:hover{transform:translateY(-6px)}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,0,0,0.05),rgba(255,255,255,0.02));font-weight:800;color:var(--accent);font-size:13px}
 
-    h1,h2,h3{margin:0 0 12px 0}
-    p.lead{margin:0 0 18px 0;font-size:1.05rem;color:var(--text-light)}
+    h1{font-size:2.2rem;line-height:1.02;margin:12px 0}
+    p.lead{margin:8px 0 18px;color:var(--muted);max-width:65ch}
 
-    /* --------------------------------------------------
-       Hero
-       -------------------------------------------------- */
-    .hero{padding:140px 0 120px;position:relative;overflow:hidden}
-    .hero .split{display:flex;gap:36px;align-items:center}
-    .hero .left{flex:1}
-    .hero .right{flex:1;display:flex;justify-content:center}
-    .device-card{width:330px;max-width:48vw;background:var(--secondary-color);border-radius:20px;padding:18px;box-shadow:0 18px 40px rgba(10,10,10,0.25);transform:translateY(0);transition:transform .6s var(--easing)}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,#222,rgba(255,255,255,0.02));font-weight:700;color:var(--accent-color);font-size:13px}
+    /* Services grid */
+    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .card{
+      display:flex;gap:12px;align-items:flex-start;background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow-sm);transition:transform .22s var(--ease),box-shadow .22s var(--ease);
+      border:1px solid rgba(0,0,0,0.03);
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(2,6,23,0.12)}
+    .card .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(74,144,226,0.02))}
+    .card h3{margin:0;font-size:1.05rem}
+    .card p{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
 
-    .hero h1{font-size:2.1rem;line-height:1.02}
-    .hero p{max-width:55ch}
+    /* Partners */
+    .partners{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .partner{width:110px;height:48px;background:var(--card);display:grid;place-items:center;border-radius:10px;box-shadow:var(--shadow-sm);font-weight:700;color:var(--muted)}
 
-    /* Animated background shapes */
-    .shape{position:absolute;border-radius:50%;filter:blur(40px);opacity:.18;mix-blend-mode:screen}
-    .shape.s1{width:420px;height:420px;background:var(--accent-color);right:-120px;top:-60px}
-    .shape.s2{width:300px;height:300px;background:#6d6dff;left:-80px;bottom:-60px}
+    /* Steps */
+    .steps{display:flex;gap:12px;flex-wrap:wrap}
+    .step{flex:1;min-width:190px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:14px;border-radius:12px;color:var(--text);box-shadow:var(--shadow-sm)}
+    .num{font-size:22px;font-weight:900;color:var(--accent)}
 
-    /* --------------------------------------------------
-       Services grid
-       -------------------------------------------------- */
-    .services{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-    .card{background:var(--white);border-radius:12px;padding:18px;box-shadow:0 8px 30px rgba(10,10,10,0.06);transition:transform .28s var(--easing),box-shadow .28s var(--easing)}
-    .card:hover{transform:translateY(-8px);box-shadow:0 14px 40px rgba(10,10,10,0.09)}
-    .card .icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-weight:800;background:linear-gradient(180deg,rgba(74,144,226,0.14),rgba(74,144,226,0.06));color:var(--accent-color)}
-
-    /* Steps / How it works */
-    .steps{display:flex;gap:18px;flex-wrap:wrap}
-    .step{flex:1;min-width:210px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:18px;border-radius:12px;color:var(--white)}
-    .step .num{font-size:28px;font-weight:800;color:var(--accent-color)}
-
-    /* Partners / logos */
-    .partners{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
-    .partner{width:110px;height:48px;background:rgba(255,255,255,0.04);display:grid;place-items:center;border-radius:10px}
-
-    /* Testimonials */
-    .testimonials{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .quote{background:var(--white);padding:18px;border-radius:12px;box-shadow:0 8px 30px rgba(10,10,10,0.06)}
-
-    /* Pricing */
-    .pricing{display:flex;gap:18px;flex-wrap:wrap}
-    .plan{flex:1;min-width:220px;background:linear-gradient(180deg,rgba(255,255,255,0.98),rgba(255,255,255,0.96));padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.04)}
-
-    /* Contact */
-    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
-    .contact-card{background:var(--white);padding:18px;border-radius:12px}
-
-    /* Footer */
-    footer{padding:40px 0;background:linear-gradient(180deg,var(--primary-color),#0f0f0f);color:var(--white)}
-
-    /* --------------------------------------------------
-       Animations: fade-in on scroll
-       -------------------------------------------------- */
-    .reveal{opacity:0;transform:translateY(18px);transition:all .7s var(--easing)}
-    .reveal.in{opacity:1;transform:none}
-
-    /* --------------------------------------------------
-       Responsive
-       -------------------------------------------------- */
-    @media(max-width:900px){
-      .hero .split{flex-direction:column-reverse}
+    /* Responsive adjustments */
+    @media(max-width:980px){
+      .split{flex-direction:column-reverse;align-items:stretch}
+      .hero{padding:120px 0 60px}
       .services{grid-template-columns:1fr}
-      .testimonials{grid-template-columns:1fr}
-      header{top:10px}
     }
 
     @media(max-width:560px){
-      .container{padding:0 14px}
-      .hero h1{font-size:1.6rem}
+      header{top:10px}
       .brand .name{display:none}
       .burger{display:block}
       nav ul{display:none}
-      .device-card{width:280px}
-      .contact-grid{grid-template-columns:1fr}
+      .device{width:280px}
+      .container{padding:0 14px}
+      .hero{padding:100px 0 48px}
     }
 
-    /* Smallest phones (360x450) - ensure readability */
+    /* Micro phones: 360px & 320px */
     @media(max-width:380px){
-      :root{--max-width:380px}
-      .hero{padding:80px 0}
-      section{padding:70px 0}
-      .hero p{font-size:0.95rem}
-      .card{padding:12px}
-      .brand img{width:30px;height:30px}
+      :root{--max-w:360px}
+      h1{font-size:1.5rem}
+      .device{width:240px;padding:12px;border-radius:10px}
+      .card{padding:10px}
+      .card .logo{width:48px;height:48px}
+      .controls .toggle{padding:6px 8px;font-size:13px}
+    }
+    @media(max-width:330px){
+      :root{--max-w:320px}
+      h1{font-size:1.25rem}
+      .badge{padding:4px 8px;font-size:12px}
     }
 
-    /* Micro interactions */
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-weight:700}
-    .btn-outline{border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--white)}
+    /* Focus & accessibility */
+    .user-is-tabbing a:focus,.user-is-tabbing button:focus{
+      outline: 3px solid rgba(74,144,226,0.18);
+      outline-offset:3px;border-radius:8px;
+    }
 
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer;border:0}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
+    .btn:active{transform:translateY(1px)}
+
+    /* Subtle hover for touch (makes hover more tactile) */
+    @media (hover: none){
+      .card:hover{transform:none;box-shadow:var(--shadow-sm)}
+    }
+
+    /* Small reveal animations */
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+    .reveal.in{opacity:1;transform:none}
   </style>
 </head>
 <body>
 
   <header>
     <div class="nav container" role="navigation" aria-label="Navigation principale">
-      <div class="brand">
-        <img src="logo.png" alt="Logo EEUEZ" />
+      <div class="brand" aria-hidden="false">
+        <img src="/assets/logo.png" alt="Logo EEUEZ" />
         <div class="name">EEUEZ</div>
       </div>
 
@@ -212,37 +239,54 @@
         </ul>
       </nav>
 
-      <button class="burger" aria-expanded="false" aria-controls="mobile-menu">☰</button>
+      <div class="controls" role="group" aria-label="Contrôles">
+        <!-- Language toggle -->
+        <button id="langToggle" class="toggle" aria-pressed="false" title="Basculer la langue">
+          <span class="sr-only">Basculer langue</span>
+          <img src="/assets/icons/lang-fr.svg" alt="" width="18" height="18" aria-hidden="true">
+          <span id="langLabel">FR</span>
+        </button>
+
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="toggle" aria-pressed="false" title="Basculer le thème">
+          <span class="sr-only">Basculer thème</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm7.66 2.05l1.79-1.8-1.41-1.41-1.8 1.79 1.42 1.42zM17 13h3v-2h-3v2zM12 6a6 6 0 000 12 6 6 0 000-12z"/></svg>
+          <span id="themeLabel">Auto</span>
+        </button>
+
+        <button class="burger" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn">☰</button>
+      </div>
     </div>
   </header>
 
-  <!-- Hero -->
   <main>
-    <section id="hero" class="hero alt">
-      <div class="shape s1" aria-hidden="true"></div>
-      <div class="shape s2" aria-hidden="true"></div>
-      <div class="container inner">
+    <!-- Hero -->
+    <section id="hero" class="hero alt" aria-labelledby="hero-title">
+      <div class="container">
         <div class="split">
-          <div class="left reveal">
+          <div class="left reveal" id="hero-left">
             <span class="badge">Solutions logicielles — EEUEZ</span>
-            <h1>On conçoit les outils qui relient <span style="color:var(--accent-color)">clients</span>, <span style="color:var(--accent-color)">marchands</span> et <span style="color:var(--accent-color)">livreurs</span>.</h1>
-            <p class="lead">EEUEZ fabrique des produits digitaux élégants et robustes: <strong>EEUEZ-Market</strong>, <strong>EEUEZ-Job</strong>, <strong>EEUEZ-Menu</strong>, et <strong>Zevaba</strong>. Conception, développement, et scalabilité—pour l'Afrique et au-delà.</p>
-            <p><a href="#pricing" class="btn cta">Découvrir les forfaits</a> <a href="#contact" class="btn btn-outline">Nous contacter</a></p>
+            <h1 id="hero-title">On conçoit les outils qui relient <span style="color:var(--accent)">clients</span>, <span style="color:var(--accent)">marchands</span> & <span style="color:var(--accent)">livreurs</span>.</h1>
+            <p class="lead" id="hero-desc">EEUEZ fabrique des produits digitaux élégants et robustes : <strong>EEUEZ-Market</strong>, <strong>EEUEZ-Job</strong>, <strong>EEUEZ-Menu</strong> et <strong>Zevaba</strong>. Conception, développement et scalabilité — pour l'Afrique et au-delà.</p>
+            <p>
+              <a href="#pricing" class="btn cta">Découvrir les forfaits</a>
+              <a href="#contact" class="btn btn-ghost" aria-label="Nous contacter">Nous contacter</a>
+            </p>
           </div>
 
-          <div class="right reveal">
-            <div class="device-card" role="img" aria-label="Aperçu produit">
+          <div class="right reveal" id="hero-right">
+            <div class="device" role="img" aria-label="Aperçu produit">
               <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-                <strong>eeuez-menu.com</strong>
-                <small style="color:var(--text-light)">SaaS</small>
+                <strong id="device-title">eeuez-menu.com</strong>
+                <small style="color:var(--muted)">SaaS</small>
               </div>
-              <div style="height:300px;background:linear-gradient(180deg,rgba(74,144,226,0.08),rgba(0,0,0,0.02));border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--text-dark)">
+              <div style="height:300px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted);background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(0,0,0,0.01))">
                 Aperçu visuel interactif
               </div>
               <div style="display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center">
-                <small style="color:var(--text-light)">Disponible sur web & WhatsApp</small>
+                <small style="color:var(--muted)">Disponible sur web & WhatsApp</small>
                 <div style="display:flex;gap:8px">
-                  <button class="btn" style="background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 10px;border-radius:8px">Demo</button>
+                  <button class="btn btn-ghost">Demo</button>
                   <button class="btn cta">Essayer</button>
                 </div>
               </div>
@@ -253,120 +297,123 @@
     </section>
 
     <!-- Services -->
-    <section id="services" class="services-section">
-      <div class="container reveal">
-        <h2>Nos services</h2>
-        <p class="lead">Des plateformes pensées pour l'usage réel: commerce, recrutement, menus digitaux et communauté intellectuelle.</p>
+    <section id="services" class="services-section" aria-labelledby="services-title">
+      <div class="container reveal" id="servicesContainer">
+        <h2 id="services-title">Nos services</h2>
+        <p class="lead" id="services-lead">Des plateformes pensées pour l'usage réel : commerce, recrutement, menus digitaux et communauté intellectuelle.</p>
 
-        <div class="services" style="margin-top:18px">
-          <article class="card">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div class="icon">M</div>
-              <div>
-                <h3>EEUEZ-Market</h3>
-                <p style="color:var(--text-light)">Marketplace qui connecte clients, marchands et coursiers — gestion des vitrines, panier, paiements et livraison optimisée.</p>
-              </div>
+        <div class="services" id="servicesGrid">
+          <!-- Service: Market -->
+          <article class="card" data-key="market" role="article" aria-labelledby="srv-market-title">
+           <a href="https://www.eeuez-market.com/"> <div class="logo">
+              <img src="/assets/eeuez-market.png" alt="Logo EEUEZ-Market" width="48" height="48" loading="lazy">
+            </div></a>
+            <div>
+              <h3 id="srv-market-title">EEUEZ-Market</h3>
+              <p class="srv-desc">Marketplace qui connecte clients, marchands et coursiers — gestion des vitrines, panier, paiements & livraison optimisée.</p>
             </div>
           </article>
 
-          <article class="card">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div class="icon">J</div>
-              <div>
-                <h3>EEUEZ-Job</h3>
-                <p style="color:var(--text-light)">Portail de recrutement qui met en relation recruteurs et talents avec des outils de matching et de gestion des candidatures.</p>
-              </div>
+          <!-- Service: Job -->
+          <article class="card" data-key="job" role="article" aria-labelledby="srv-job-title">
+           <a href="https://eeuez-job.com/"> <div class="logo">
+              <img src="/assets/eeuez-job.png" alt="Logo EEUEZ-Job" width="48" height="48" loading="lazy">
+            </div></a>
+            <div>
+              <h3 id="srv-job-title">EEUEZ-Job</h3>
+              <p class="srv-desc">Portail de recrutement : matching, gestion des candidatures et outils RH pour entreprises.</p>
             </div>
           </article>
 
-          <article class="card">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div class="icon">🍽</div>
-              <div>
-                <h3>EEUEZ-Menu</h3>
-                <p style="color:var(--text-light)">Menus digitaux QR, commandes en ligne et intégration WhatsApp pour une expérience simple et rapide en restauration.</p>
-              </div>
+          <!-- Service: Menu -->
+          <article class="card" data-key="menu" role="article" aria-labelledby="srv-menu-title">
+           <a href="https://eeuez-menu.com/"> <div class="logo">
+              <img src="/assets/eeuez-menu.png" alt="Logo EEUEZ-Menu" width="48" height="48" loading="lazy">
+            </div></a>
+            <div>
+              <h3 id="srv-menu-title">EEUEZ-Menu</h3>
+              <p class="srv-desc">Menus QR, commandes en ligne et intégration WhatsApp pour améliorer la conversion en restauration.</p>
             </div>
           </article>
 
-          <article class="card">
-            <div style="display:flex;gap:12px;align-items:center">
-              <div class="icon">Z</div>
-              <div>
-                <h3>Zevaba</h3>
-                <p style="color:var(--text-light)">Réseau social pour intellectuels: partage d'articles, débats, groupes privés et monétisation du savoir.</p>
-              </div>
+          <!-- Service: Zevaba -->
+          <article class="card" data-key="zevaba" role="article" aria-labelledby="srv-zevaba-title">
+            <a href="https://zevaba.com/"><div class="logo">
+              <img src="/assets/zevaba.png" alt="Logo Zevaba" width="48" height="48" loading="lazy">
+            </div></a>
+            <div>
+              <h3 id="srv-zevaba-title">Zevaba</h3>
+              <p class="srv-desc">Réseau social pour intellectuels : partage, débats et monétisation du savoir.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- How it works / Steps -->
-    <section id="how" class="alt">
+    <!-- How it works -->
+    <section id="how" class="alt" aria-labelledby="how-title">
       <div class="container reveal">
-        <h2 style="color:var(--white)">Comment ça marche</h2>
-        <p class="lead" style="color:var(--text-light)">Simple, modulaire et extensible — trois étapes pour lancer votre service.</p>
+        <h2 id="how-title" style="color:var(--text)">Comment ça marche</h2>
+        <p class="lead" style="color:var(--muted)">Simple, modulaire et extensible — trois étapes pour lancer votre service.</p>
 
-        <div class="steps" style="margin-top:18px">
+        <div class="steps" style="margin-top:12px">
           <div class="step">
             <div class="num">1</div>
             <h3>Plan & Design</h3>
-            <p>Atelier produit, maquettage et validation UX/UI. Nous respectons les habitudes tout en ouvrant la voie au moderne.</p>
+            <p>Atelier produit, maquettage et validation UX/UI. On respecte les habitudes, on travaille l’excellence.</p>
           </div>
 
           <div class="step">
             <div class="num">2</div>
             <h3>Build & Integrate</h3>
-            <p>Développement backend robuste, API REST/GraphQL, intégration paiements et messagerie (WhatsApp, SMS).</p>
+            <p>APIs robustes, intégration paiements et messagerie (WhatsApp, SMS).</p>
           </div>
 
           <div class="step">
             <div class="num">3</div>
             <h3>Scale & Support</h3>
-            <p>Déploiement, supervision 24/7, optimisation des coûts et suivi analytique pour décision rapide.</p>
+            <p>Déploiement, supervision 24/7 et optimisation coûts grâce à l’IA.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Partners -->
-    <section id="partners">
+    <section id="partners" aria-labelledby="partners-title">
       <div class="container reveal">
-        <h2>Ils nous font confiance</h2>
+        <h2 id="partners-title">Ils nous font confiance</h2>
         <p class="lead">Partenaires, supermarchés et restaurants qui utilisent nos solutions.</p>
-
-        <div class="partners" style="margin-top:18px">
-          <div class="partner">Dovv</div>
-          <div class="partner">Santa Lucia</div>
-          <div class="partner">Renaprov</div>
-          <div class="partner">Local Biz</div>
+        <div class="partners" style="margin-top:12px">
+          <div class="partner"><img src="/assets/partners/dovv.svg" alt="Dovv" width="84" loading="lazy"></div>
+          <div class="partner"><img src="/assets/partners/santa-lucia.svg" alt="Santa Lucia" width="84" loading="lazy"></div>
+          <div class="partner"><img src="/assets/partners/renaprov.svg" alt="Renaprov" width="84" loading="lazy"></div>
+          <div class="partner"><img src="/assets/partners/localbiz.svg" alt="Local Biz" width="84" loading="lazy"></div>
         </div>
       </div>
     </section>
 
     <!-- Pricing -->
-    <section id="pricing" class="alt">
+    <section id="pricing" class="alt" aria-labelledby="pricing-title">
       <div class="container reveal">
-        <h2 style="color:var(--white)">Forfaits</h2>
-        <p class="lead" style="color:var(--text-light)">Des offres claires: du MVP pour commencer aux plans sur-mesure pour les entreprises.</p>
+        <h2 id="pricing-title">Forfaits</h2>
+        <p class="lead" style="color:var(--muted)">Des offres claires: du MVP pour commencer aux plans sur-mesure pour les entreprises.</p>
 
-        <div class="pricing" style="margin-top:18px">
-          <div class="plan">
+        <div class="pricing" style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+          <div class="plan card" style="min-width:200px">
             <h3>Starter</h3>
             <p class="lead">Idéal pour tester — présence en ligne, 5 produits, QR codes.</p>
             <p style="font-weight:800;font-size:20px">5 000 FCFA/mois</p>
             <p><a href="#contact" class="btn cta">Souscrire</a></p>
           </div>
 
-          <div class="plan">
+          <div class="plan card" style="min-width:200px">
             <h3>Growth</h3>
             <p class="lead">Pour boutiques en pleine croissance — intégration paiements & livraison.</p>
             <p style="font-weight:800;font-size:20px">Sur devis</p>
             <p><a href="#contact" class="btn cta">Demander un devis</a></p>
           </div>
 
-          <div class="plan">
+          <div class="plan card" style="min-width:200px">
             <h3>Entreprise</h3>
             <p class="lead">Personnalisé: API, SLA, support 24/7, optimisation AI.</p>
             <p style="font-weight:800;font-size:20px">Contact commercial</p>
@@ -377,31 +424,31 @@
     </section>
 
     <!-- Testimonials -->
-    <section id="testimonials">
+    <section id="testimonials" aria-labelledby="testimonials-title">
       <div class="container reveal">
-        <h2>Avis</h2>
+        <h2 id="testimonials-title">Avis</h2>
         <p class="lead">Ce que nos clients disent — la confiance, pas les slogans.</p>
 
-        <div class="testimonials" style="margin-top:18px">
-          <div class="quote">
+        <div class="testimonials" style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="quote card">
             <p style="font-style:italic">"EEUEZ a transformé notre prise de commande — simple, rapide et fiable."</p>
-            <p style="font-weight:700;margin-top:10px">— Restaurant La Terrasse</p>
+            <p style="font-weight:800;margin-top:8px">— Restaurant La Terrasse</p>
           </div>
 
-          <div class="quote">
+          <div class="quote card">
             <p style="font-style:italic">"Matching candidat / poste jamais aussi précis."</p>
-            <p style="font-weight:700;margin-top:10px">— Recruteur, Renaprov</p>
+            <p style="font-weight:800;margin-top:8px">— Recruteur, Renaprov</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Blog / Resources (SEO content hub) -->
-    <section id="blog" class="alt">
+    <!-- Blog -->
+    <section id="blog" class="alt" aria-labelledby="blog-title">
       <div class="container reveal">
-        <h2 style="color:var(--white)">Ressources & Blog</h2>
-        <p class="lead" style="color:var(--text-light)">Articles, guides et études de cas pour aider nos utilisateurs et booster votre référencement.</p>
-        <div style="margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+        <h2 id="blog-title" style="color:var(--text)">Ressources & Blog</h2>
+        <p class="lead" style="color:var(--muted)">Articles, guides et études de cas pour aider nos utilisateurs et booster votre référencement.</p>
+        <div style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
           <article class="card"> <h4>Comment lancer un marketplace</h4><p class="lead">Checklist technique & business.</p></article>
           <article class="card"> <h4>Menus QR qui convertissent</h4><p class="lead">Optimisation menu & parcours client.</p></article>
           <article class="card"> <h4>Optimiser le matching des CV</h4><p class="lead">Data, scoring et tests A/B.</p></article>
@@ -410,13 +457,13 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact">
+    <section id="contact" aria-labelledby="contact-title">
       <div class="container reveal">
-        <h2>Contact</h2>
+        <h2 id="contact-title">Contact</h2>
         <p class="lead">Prêt à lancer ? Laisse-nous un message — on prépare le plan, tu gardes la vision.</p>
 
-        <div class="contact-grid" style="margin-top:18px">
-          <form class="contact-card" onsubmit="handleForm(event)">
+        <div class="contact-grid" style="margin-top:12px;display:grid;grid-template-columns:1fr 320px;gap:12px">
+          <form class="contact-card card" onsubmit="handleForm(event)" aria-label="Formulaire de contact">
             <label for="name">Nom</label>
             <input id="name" name="name" required style="width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06)" />
 
@@ -429,11 +476,11 @@
             <p><button type="submit" class="btn cta">Envoyer</button></p>
           </form>
 
-          <aside class="contact-card" style="display:flex;flex-direction:column;gap:10px;justify-content:center">
+          <aside class="contact-card card" style="display:flex;flex-direction:column;gap:10px;justify-content:center">
             <div><strong>Adresse</strong><br/>Mobile Essos, Yaoundé, Cameroun</div>
             <div><strong>Téléphone</strong><br/>+237 6XX XXX XXX</div>
             <div><strong>Email</strong><br/>contact@eeuez.com</div>
-            <div style="margin-top:10px"><a href="#" style="color:var(--accent-color);font-weight:700">Demander une démo</a></div>
+            <div style="margin-top:8px"><a href="#" style="color:var(--accent);font-weight:700">Demander une démo</a></div>
           </aside>
         </div>
       </div>
@@ -442,7 +489,7 @@
   </main>
 
   <footer>
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:18px 0">
       <div>
         <strong>EEUEZ</strong><br/>
         © <span id="year"></span> — Conception & Développement
@@ -454,53 +501,151 @@
     </div>
   </footer>
 
-  <script>
-    // Set dynamic year
+  <script defer>
+    // --- Utilities & Small progressive enhancements ---
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Smooth scrolling for internal links
+    // Smooth internal scroll
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', (e)=>{
         const href = a.getAttribute('href');
         if(href.length>1){
           e.preventDefault();
-          document.querySelector(href).scrollIntoView({behavior:'smooth',block:'start'});
+          const target = document.querySelector(href);
+          target && target.scrollIntoView({behavior:'smooth',block:'start'});
+          // close mobile menu if open
+          closeMobileMenu();
         }
       });
     });
 
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+    // Reveal on scroll (IntersectionObserver)
+    const io = new IntersectionObserver((entries, obs)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){ en.target.classList.add('in'); obs.unobserve(en.target); }
+      });
     },{threshold:0.12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Mobile menu toggling
-    const burger = document.querySelector('.burger');
+    // — Mobile Menu Toggle —
+    const burger = document.getElementById('burgerBtn');
+    const navUl = document.querySelector('nav ul');
+    function closeMobileMenu(){
+      if(window.innerWidth <= 560 && navUl) { navUl.style.display = 'none'; burger.setAttribute('aria-expanded','false'); }
+    }
     burger && burger.addEventListener('click', ()=>{
-      const nav = document.querySelector('nav ul');
-      const open = nav.style.display === 'flex';
-      nav.style.display = open ? 'none' : 'flex';
+      if(!navUl) return;
+      const open = navUl.style.display === 'flex';
+      navUl.style.display = open ? 'none' : 'flex';
+      navUl.style.flexDirection = window.innerWidth <= 560 ? 'column' : 'row';
       burger.setAttribute('aria-expanded', String(!open));
     });
+    window.addEventListener('resize', closeMobileMenu);
+    closeMobileMenu();
 
-    // Simple form handler (demo)
+    // — Simple form handler (demo) —
     function handleForm(e){
       e.preventDefault();
       const name = e.target.name.value || '—';
       const email = e.target.email.value || '—';
-      const message = e.target.message.value || '—';
-      // Ici tu peux remplacer par un fetch vers ton endpoint.
+      // here you can call fetch to your endpoint
       alert(`Merci ${name} — nous avons reçu ton message. Nous reviendrons à ${email}`);
       e.target.reset();
     }
+    window.handleForm = handleForm;
 
-    // Tiny progressive enhancement: keyboard focus style
+    // — Theme toggle (light/dark/auto) —
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLabel = document.getElementById('themeLabel');
+    const stored = localStorage.getItem('eeuez:theme'); // 'light'|'dark'|'auto'
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const applyTheme = (mode) => {
+      if(mode === 'auto'){
+        document.documentElement.removeAttribute('data-theme');
+        themeLabel.textContent = 'Auto';
+      } else {
+        document.documentElement.setAttribute('data-theme', mode);
+        themeLabel.textContent = mode === 'dark' ? 'Dark' : 'Light';
+      }
+      themeToggle.setAttribute('aria-pressed', String(mode !== 'auto'));
+      localStorage.setItem('eeuez:theme', mode);
+    };
+    // initialize
+    applyTheme(stored || 'auto');
+    themeToggle && themeToggle.addEventListener('click', ()=>{
+      const current = localStorage.getItem('eeuez:theme') || 'auto';
+      const next = current === 'auto' ? (prefersDark ? 'light' : 'dark') : (current === 'dark' ? 'light' : (current === 'light' ? 'auto' : 'auto'));
+      applyTheme(next);
+    });
+
+    // On load: if auto + prefers dark, set data-theme for initial paint to avoid flash
+    (function quickThemePaint(){
+      const s = localStorage.getItem('eeuez:theme') || 'auto';
+      if(s === 'dark' || (s === 'auto' && prefersDark)) document.documentElement.setAttribute('data-theme','dark');
+    })();
+
+    // — Language toggle (FR/EN) — swap texts for services
+    const langToggle = document.getElementById('langToggle');
+    const langLabel = document.getElementById('langLabel');
+    const textBundle = {
+      fr: {
+        servicesTitle: "Nos services",
+        servicesLead: "Des plateformes pensées pour l'usage réel : commerce, recrutement, menus digitaux et communauté intellectuelle.",
+        market: {title:"EEUEZ-Market",desc:"Marketplace qui connecte clients, marchands et coursiers — gestion des vitrines, panier, paiements & livraison optimisée."},
+        job: {title:"EEUEZ-Job",desc:"Portail de recrutement : matching, gestion des candidatures et outils RH pour entreprises."},
+        menu: {title:"EEUEZ-Menu",desc:"Menus QR, commandes en ligne et intégration WhatsApp pour améliorer la conversion en restauration."},
+        zevaba: {title:"Zevaba",desc:"Réseau social pour intellectuels : partage, débats et monétisation du savoir."}
+      },
+      en: {
+        servicesTitle: "Our Services",
+        servicesLead: "Platforms built for real use: marketplace, recruitment, digital menus and intellectual community.",
+        market: {title:"EEUEZ-Market",desc:"Marketplace connecting customers, merchants and couriers — storefronts, cart, payments & optimized delivery."},
+        job: {title:"EEUEZ-Job",desc:"Recruitment portal: matching, applicant management and HR tools for companies."},
+        menu: {title:"EEUEZ-Menu",desc:"QR menus, online orders and WhatsApp integration to boost restaurant conversions."},
+        zevaba: {title:"Zevaba",desc:"Social network for intellectuals: sharing, debates and monetizing knowledge."}
+      }
+    };
+
+    const storedLang = localStorage.getItem('eeuez:lang') || 'fr';
+    function applyLang(l){
+      const b = textBundle[l] || textBundle.fr;
+      document.getElementById('services-title').textContent = b.servicesTitle;
+      document.getElementById('services-lead').textContent = b.servicesLead;
+      // services cards
+      document.querySelectorAll('[data-key]').forEach(card=>{
+        const key = card.getAttribute('data-key');
+        const titleEl = card.querySelector('h3');
+        const descEl = card.querySelector('.srv-desc');
+        if(titleEl && descEl && b[key]){
+          titleEl.textContent = b[key].title;
+          descEl.textContent = b[key].desc;
+        }
+      });
+      langLabel.textContent = l.toUpperCase();
+      langToggle.setAttribute('aria-pressed', l !== 'fr');
+      localStorage.setItem('eeuez:lang', l);
+      // If you want to swap logos per locale, do it here (example skipped)
+    }
+    applyLang(storedLang);
+    langToggle && langToggle.addEventListener('click', ()=>{
+      const cur = localStorage.getItem('eeuez:lang') || 'fr';
+      applyLang(cur === 'fr' ? 'en' : 'fr');
+    });
+
+    // Accessibility: keyboard-focus detection
     document.body.addEventListener('keydown', (e)=>{
       if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
     });
-  </script>
 
+    // Close nav on external click (mobile)
+    document.addEventListener('click', (e)=>{
+      if(window.innerWidth <= 560 && navUl && !navUl.contains(e.target) && !burger.contains(e.target)) {
+        navUl.style.display = 'none';
+        burger.setAttribute('aria-expanded','false');
+      }
+    });
+
+    // Improve perceived performance: lazy-load images already via loading="lazy"
+  </script>
 </body>
 </html>
-
