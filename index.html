@@ -10,6 +10,7 @@
   <meta name="robots" content="index, follow" />
   <link rel="icon" href="/assets/logo.png">
   <link rel="preload" href="/assets/logo.png" as="image">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* ---------------------------
@@ -21,16 +22,44 @@
       --text: #111827;
       --muted: #6b7280;
       --accent: #4a90e2;
+      --accent-gradient: linear-gradient(135deg, #4a90e2 0%, #6fb3ff 100%);
+      --accent-dark: #3a7ac8;
       --glass: rgba(255,255,255,0.35);
-      --radius: 12px;
+      --radius: 16px;
       --max-w: 1200px;
       --ease: cubic-bezier(.22,.9,.35,1);
       --shadow-sm: 0 6px 18px rgba(15,23,42,0.06);
+      --shadow-md: 0 10px 30px rgba(15,23,42,0.08);
       --shadow-lg: 0 20px 50px rgba(15,23,42,0.12);
       --focus: 3px;
-      --nav-height: 68px;
+      --nav-height: 70px;
+      --section-padding: 5rem 0;
       color-scheme: light;
-      font-family: Inter, 'Segoe UI', Roboto, system-ui, -apple-system;
+      font-family: 'Inter', 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiA.woff2) format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2) format('woff2');
     }
 
     html[data-theme="dark"]{
@@ -39,6 +68,8 @@
       --text: #e6eef8;
       --muted: #9aa6b2;
       --accent: #7fb3ff;
+      --accent-gradient: linear-gradient(135deg, #7fb3ff 0%, #4a90e2 100%);
+      --accent-dark: #6ba1e6;
       --glass: rgba(255,255,255,0.03);
       color-scheme: dark;
     }
@@ -48,14 +79,15 @@
     html,body{height:100%}
     body{
       margin:0;
-      background:linear-gradient(180deg,var(--bg),color-mix(in srgb, var(--bg) 80%, black 2%));
+      background: var(--bg);
       color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
+      line-height:1.6;
       -webkit-tap-highlight-color: transparent;
       transition:background .4s var(--ease), color .25s var(--ease);
       min-height:100vh;
+      font-family: 'Inter', sans-serif;
     }
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block;height:auto}
@@ -69,6 +101,7 @@
       position:fixed;left:12px;top:12px;background:var(--card);padding:8px 12px;border-radius:8px;z-index:9999;transform:translateY(-120%);
       transition:transform .18s var(--ease);
       box-shadow:var(--shadow-sm);
+      font-weight: 600;
     }
     .skip-link:focus{transform:none;outline:3px solid rgba(74,144,226,0.16)}
 
@@ -76,6 +109,12 @@
     header{
       position:fixed;inset:0 0 auto 0;padding:12px 0;z-index:120;pointer-events:none;
       display:flex;justify-content:center;
+      transition: all 0.3s ease;
+    }
+    header.scrolled {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 8px 0;
     }
     .nav{
       pointer-events:auto;display:flex;align-items:center;gap:12px;
@@ -89,18 +128,19 @@
 
     .brand{display:flex;gap:10px;align-items:center}
     .brand img{width:42px;height:42px;border-radius:10px;object-fit:cover}
-    .brand .name{font-weight:800;letter-spacing:0.3px;font-size:1rem}
+    .brand .name{font-weight:800;letter-spacing:0.3px;font-size:1.2rem;background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
 
     nav{display:flex;align-items:center;gap:10px}
     nav ul{display:flex;gap:8px;align-items:center;list-style:none;margin:0;padding:4px}
     nav a{padding:8px 12px;border-radius:10px;transition:all .18s var(--ease);font-weight:600;color:var(--text);opacity:.95}
     nav a:hover, nav a:focus{transform:translateY(-2px);color:var(--accent);outline:none}
-    .cta{background:linear-gradient(90deg,var(--accent),#6fb3ff);color:#fff;padding:8px 14px;border-radius:10px;font-weight:800;box-shadow:var(--shadow-sm)}
+    .cta{background:var(--accent-gradient);color:#fff;padding:10px 18px;border-radius:10px;font-weight:800;box-shadow:var(--shadow-sm); transition: all 0.3s ease;}
+    .cta:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3); }
 
     /* Controls */
     .controls{display:flex;gap:8px;align-items:center;margin-left:auto}
     .toggle{
-      display:inline-flex;align-items:center;gap:8px;padding:6px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--glass);cursor:pointer;font-weight:700;
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--glass);cursor:pointer;font-weight:700;
       transition:transform .15s,var(--ease);
     }
     .toggle:active{transform:scale(.98)}
@@ -109,107 +149,402 @@
     /* Hamburger */
     .burger{
       display:none;background:transparent;border:0;padding:8px;border-radius:8px;cursor:pointer;font-size:20px;margin-left:6px;
+      width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative;
+      z-index: 1000;
+    }
+    .burger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      margin: 2px 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+      transform-origin: center;
+    }
+    .burger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
     }
 
-    /* Mobile menu (off-canvas full panel from top) */
+    /* Mobile menu (sidebar) - AMÉLIORÉ */
     .mobile-menu{
-      position:fixed;inset:0;z-index:140;display:flex;flex-direction:column;padding:90px 20px 24px;gap:18px;
+      position:fixed;top:0;right:-100%;width:85%;max-width:320px;height:100vh;z-index:100;display:flex;flex-direction:column;padding:90px 20px 24px;gap:18px;
       background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 96%, black 1%));
-      transform:translateY(-110%);transition:transform .28s var(--ease);box-shadow:var(--shadow-lg);visibility:hidden;opacity:0;
+      transition:right .35s var(--ease);box-shadow:var(--shadow-lg);opacity:0;visibility:hidden;
+      overflow-y: auto;
     }
-    .mobile-menu.open{transform:translateY(0);visibility:visible;opacity:1}
+    .mobile-menu.open{right:0;opacity:1;visibility:visible}
     .mobile-menu nav ul{flex-direction:column;gap:10px}
-    .mobile-menu a{display:block;padding:12px;border-radius:10px}
-    .mobile-menu .mobile-footer{margin-top:auto;display:flex;gap:8px;align-items:center}
+    .mobile-menu a{display:block;padding:12px;border-radius:10px; font-size: 1.1rem; font-weight: 600; transition: all 0.2s ease;}
+    .mobile-menu a:hover { background: rgba(74,144,226,0.1); }
+    .mobile-menu .mobile-footer{margin-top:auto;display:flex;gap:8px;align-items:center; padding-top: 20px; border-top: 1px solid rgba(0,0,0,0.05);}
+
+    /* Overlay for mobile menu */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
 
     /* Hero */
     main{padding-top:calc(var(--nav-height) + 22px)}
-    .hero{padding:120px 0 56px;position:relative;overflow:hidden}
-    .split{display:flex;gap:30px;align-items:center;align-content:stretch}
+    .hero{padding: 6rem 0 4rem; position:relative;overflow:hidden}
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74,144,226,0.1) 0%, rgba(74,144,226,0) 70%);
+      z-index: -1;
+      animation: pulse 8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    .split{display:flex;gap:40px;align-items:center;align-content:stretch}
     .left{flex:1;min-width:260px}
     .right{flex:1;display:flex;justify-content:center}
     .device{
-      width:min(420px,48vw);border-radius:18px;padding:16px;background:var(--card);box-shadow:var(--shadow-lg);transition:transform .6s var(--ease);
-      display:flex;flex-direction:column;gap:12px;min-height:220px;
+      width:min(420px,48vw);border-radius:24px;padding:20px;background:var(--card);box-shadow:var(--shadow-lg);transition:transform .6s var(--ease);
+      display:flex;flex-direction:column;gap:12px;min-height:280px;
       aspect-ratio: 9/12;
+      border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      animation: float 6s ease-in-out infinite;
     }
-    .device:hover{transform:translateY(-6px)}
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,rgba(0,0,0,0.03),rgba(255,255,255,0.02));font-weight:800;color:var(--accent);font-size:13px}
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .device::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--accent-gradient);
+      border-radius: 24px 24px 0 0;
+    }
+    .device:hover{transform:translateY(-6px) scale(1.02); box-shadow: 0 30px 60px rgba(15,23,42,0.15); animation-play-state: paused;}
+    .badge{display:inline-block;padding:8px 14px;border-radius:999px;background:var(--accent-gradient);font-weight:800;color:#fff;font-size:0.8rem; letter-spacing: 0.5px;}
 
-    h1{font-size:clamp(1.25rem, 3.6vw, 2.2rem);line-height:1.02;margin:12px 0}
-    p.lead{margin:8px 0 18px;color:var(--muted);max-width:65ch}
+    h1{font-size:clamp(2rem, 5vw, 3.2rem);line-height:1.1;margin:16px 0; font-weight: 800;}
+    p.lead{margin:16px 0 24px;color:var(--muted);max-width:65ch; font-size: 1.1rem;}
 
     /* Services grid */
-    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:28px}
     .card{
-      display:flex;gap:12px;align-items:flex-start;background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow-sm);transition:transform .22s var(--ease),box-shadow .22s var(--ease);
+      display:flex;gap:16px;align-items:flex-start;background:var(--card);padding:24px;border-radius:var(--radius);box-shadow:var(--shadow-sm);transition:transform .22s var(--ease),box-shadow .22s var(--ease);
       border:1px solid rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover{transform:translateY(-6px);box-shadow:0 28px 60px rgba(2,6,23,0.08)}
-    .card .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(74,144,226,0.02))}
-    .card h3{margin:0;font-size:1.05rem}
-    .card p{margin:6px 0 0;color:var(--muted);font-size:0.95rem}
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--accent-gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);}
+    .card:hover::before {
+      opacity: 1;
+    }
+    .card .logo{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(74,144,226,0.02)); flex-shrink: 0;}
+    .card h3{margin:0;font-size:1.2rem; font-weight: 700;}
+    .card p{margin:10px 0 0;color:var(--muted);font-size:1rem; line-height: 1.6;}
 
     /* Partners */
-    .partners{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .partner{min-width:90px;height:48px;background:var(--card);display:grid;place-items:center;border-radius:10px;box-shadow:var(--shadow-sm);font-weight:700;color:var(--muted);padding:6px}
+    .partners{display:flex;gap:20px;flex-wrap:wrap;align-items:center; justify-content: center;}
+    .partner{min-width:120px;height:70px;background:var(--card);display:grid;place-items:center;border-radius:12px;box-shadow:var(--shadow-sm);font-weight:700;color:var(--muted);padding:12px; transition: all 0.3s ease;}
+    .partner:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 
     /* Steps */
-    .steps{display:flex;gap:12px;flex-wrap:wrap}
-    .step{flex:1;min-width:190px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:14px;border-radius:12px;color:var(--text);box-shadow:var(--shadow-sm)}
-    .num{font-size:22px;font-weight:900;color:var(--accent)}
+    .steps{display:flex;gap:20px;flex-wrap:wrap; justify-content: center;}
+    .step{flex:1;min-width:250px;background:var(--card);padding:28px;border-radius:var(--radius);color:var(--text);box-shadow:var(--shadow-sm); transition: all 0.3s ease; position: relative;}
+    .step:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .num{font-size:28px;font-weight:900;color:var(--accent); margin-bottom: 10px;}
+    .step h3 { font-size: 1.2rem; margin: 10px 0; }
 
     /* Pricing */
-    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px}
+    .plan { text-align: center; padding: 30px; position: relative; }
+    .plan.popular::before {
+      content: 'Populaire';
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: var(--accent-gradient);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
 
-    /* Testimonials & blog */
-    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
+    /* Testimonials & blog - AMÉLIORÉ */
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px}
+    .blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px}
+    .quote { 
+      position: relative; 
+      padding-left: 30px;
+      border-left: 4px solid var(--accent);
+    }
+    .quote::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 15px;
+      font-size: 60px;
+      color: var(--accent);
+      opacity: 0.2;
+      font-family: Georgia, serif;
+    }
+    
+    /* Blog card improvements */
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    .blog-image {
+      height: 180px;
+      background: linear-gradient(120deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+    }
+    .blog-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-content .btn {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+    
+    /* Testimonial card improvements */
+    .testimonial-card {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 25px;
+    }
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+    .testimonial-author {
+      margin-top: 15px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .testimonial-role {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
 
     /* Contact grid */
-    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:12px}
-    .contact-card input,.contact-card textarea{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
-    .contact-card label{font-weight:700}
+    .contact-grid{display:grid;grid-template-columns:1fr 320px;gap:20px}
+    .contact-card input,.contact-card textarea{width:100%;padding:12px 16px;margin:8px 0;border-radius:8px;border:1px solid rgba(0,0,0,0.1);background:var(--card); color: var(--text); font-family: inherit;}
+    .contact-card input:focus,.contact-card textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(74,144,226,0.1); }
+    .contact-card label{font-weight:700; display: block; margin-top: 12px;}
 
     /* Footer */
-    footer{border-top:1px solid rgba(0,0,0,0.04);margin-top:32px;padding:18px 0;background:transparent}
+    footer{border-top:1px solid rgba(0,0,0,0.04);margin-top:60px;padding:30px 0;background:var(--card)}
+    .social-links { display: flex; gap: 15px; margin-top: 15px; }
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      background: var(--accent);
+      color: white;
+      transform: translateY(-3px);
+    }
 
     /* Buttons */
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer;border:0}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:800;cursor:pointer;border:0; transition: all 0.3s ease;}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.1);}
+    .btn-ghost:hover { background: rgba(0,0,0,0.05); }
+
+    /* Section styling */
+    section { padding: var(--section-padding); }
+    .alt { background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--bg) 90%, transparent) 100%); }
 
     /* Small reveal animations */
-    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
     .reveal.in{opacity:1;transform:none}
 
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+      box-shadow: var(--shadow-md);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+
     /* Micro adjustments */
+    @media(max-width:1080px){
+      .split{gap: 30px;}
+      .hero{padding: 5rem 0 3rem;}
+    }
+    
     @media(max-width:980px){
-      .split{flex-direction:column-reverse;align-items:stretch}
-      .hero{padding:100px 0 40px}
-      .device{width:100%;max-width:520px}
+      .split{flex-direction:column-reverse;align-items:stretch; gap: 40px;}
+      .hero{padding:4rem 0 3rem}
+      .device{width:100%;max-width:400px; margin: 0 auto;}
       .contact-grid{grid-template-columns:1fr}
       header{padding:10px 0}
       .brand .name{display:inline-block}
+      .services, .pricing, .testimonials, .blog-grid {
+        grid-template-columns: 1fr;
+      }
     }
-    @media(max-width:760px){
-      .burger{display:block}
+    
+    @media(max-width:768px){
+      .burger{display:flex}
       nav ul{display:none}
       .controls{gap:6px}
       .container{padding:0 16px}
       .device{aspect-ratio: 3/4; min-height:220px}
+      .steps { flex-direction: column; }
+      .step { min-width: 100%; }
+      .partner { min-width: calc(50% - 10px); height: 60px; }
+      h1 { font-size: clamp(1.8rem, 5.5vw, 2.5rem); }
+      section { padding: 3rem 0; }
+      .card { padding: 20px; }
+      .mobile-menu { padding-top: 80px; }
+      
+      /* Mobile menu improvements */
+      .mobile-menu {
+        width: 85%;
+        max-width: 300px;
+        padding: 80px 20px 20px;
+      }
+      .mobile-menu a {
+        padding: 14px 16px;
+        margin-bottom: 5px;
+        font-size: 1rem;
+        border-radius: 8px;
+        background: rgba(74,144,226,0.05);
+      }
+      .mobile-menu .cta {
+        background: var(--accent-gradient);
+        color: white;
+        text-align: center;
+        margin-top: 10px;
+      }
+      .mobile-footer {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
     }
-    @media(max-width:420px){
-      :root{--max-w:420px}
-      h1{font-size:clamp(1rem,5.5vw,1.4rem)}
+    
+    @media(max-width:480px){
+      :root{--max-w:480px; --nav-height: 60px;}
+      h1{font-size:clamp(1.5rem,6vw,2rem)}
       .brand .name{display:none}
-      .badge{padding:4px 8px;font-size:12px}
+      .badge{padding:6px 12px;font-size:0.75rem}
       .nav{padding:6px}
-      .mobile-menu{padding-top:84px}
-      .card{padding:10px}
+      .mobile-menu{width: 85%; padding: 70px 15px 15px;}
+      .card{padding:16px; flex-direction: column; text-align: center; }
+      .card .logo { margin: 0 auto; }
+      .btn { padding: 10px 16px; font-size: 0.9rem; }
+      .toggle { padding: 6px 10px; }
+      .hero { padding: 3rem 0 2rem; }
+      .partners { gap: 10px; }
+      .partner { min-width: calc(50% - 10px); }
+      .contact-grid { gap: 15px; }
+      
+      /* Further mobile improvements */
+      .mobile-menu a {
+        font-size: 0.95rem;
+        padding: 12px 14px;
+      }
+      .testimonial-card, .blog-card {
+        padding: 20px;
+      }
     }
+    
     @media (hover: none){
       .card:hover{transform:none;box-shadow:var(--shadow-sm)}
+      .device:hover{transform:none; box-shadow: var(--shadow-lg);}
     }
+    
     @media (prefers-reduced-motion: reduce){
       *{transition:none!important;animation:none!important}
     }
@@ -249,7 +584,6 @@
         <!-- Language toggle -->
         <button id="langToggle" class="toggle" aria-pressed="false" title="Basculer la langue">
           <span class="sr-only">Basculer langue</span>
-          
           <span id="langLabel">FR</span>
         </button>
 
@@ -261,12 +595,19 @@
         </button>
 
         <!-- Mobile burger -->
-        <button class="burger" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn" aria-label="Ouvrir le menu">☰</button>
+        <button class="burger" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn" aria-label="Ouvrir le menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile menu panel -->
+  <!-- Overlay for mobile menu -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Mobile menu panel - AMÉLIORÉ -->
   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menu mobile">
     <nav aria-label="Menu mobile principal">
       <ul>
@@ -305,19 +646,17 @@
 
           <div class="right" id="hero-right">
             <div class="device" role="img" aria-label="Aperçu produit">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
                 <strong id="device-title">eeuez-menu.com</strong>
                 <small style="color:var(--muted)">SaaS</small>
               </div>
               <div style="flex:1;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted);border-radius:12px;background:linear-gradient(180deg,rgba(74,144,226,0.06),rgba(0,0,0,0.01))">
+                <i class="fas fa-mobile-alt" style="font-size: 2rem; margin-right: 10px;"></i>
                 Aperçu visuel interactif
               </div>
-              <div style="display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center">
+              <div style="display:flex;gap:8px;margin-top:16px;justify-content:space-between;align-items:center">
                 <small style="color:var(--muted)">Disponible sur web & WhatsApp</small>
-                <div style="display:flex;gap:8px">
-                  <button class="btn btn-ghost">Demo</button>
-                  <button class="btn cta">Essayer</button>
-                </div>
+                <span style="padding:4px 8px;border-radius:6px;background:var(--accent);color:#fff;font-size:0.8rem;font-weight:700">v2.1</span>
               </div>
             </div>
           </div>
@@ -326,55 +665,49 @@
     </section>
 
     <!-- Services -->
-    <section id="services" class="services-section reveal" aria-labelledby="services-title">
-      <div class="container" id="servicesContainer">
-        <h2 id="services-title">Nos services</h2>
-        <p class="lead" id="services-lead">Des plateformes pensées pour l'usage réel : commerce, recrutement, menus digitaux et communauté intellectuelle.</p>
-
-        <div class="services" id="servicesGrid">
-          <!-- Service: Market -->
-          <article class="card" data-key="market" role="article" aria-labelledby="srv-market-title">
-            <a href="https://www.eeuez-market.com/"><div class="logo">
-              <img src="/assets/eeuez-market.png" alt="Logo EEUEZ-Market" width="48" height="48" loading="lazy">
-            </div></a>
-            <div>
-              <h3 id="srv-market-title">EEUEZ-Market</h3>
-              <p class="srv-desc">Marketplace qui connecte clients, marchands et coursiers — gestion des vitrines, panier, paiements & livraison optimisée.</p>
+    <section id="services" class="reveal" aria-labelledby="services-title">
+      <div class="container">
+        <h2 id="services-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Nos solutions logicielles</h2>
+        <div class="services">
+          <div class="card" role="article" aria-labelledby="service1-title">
+            <div class="logo" aria-hidden="true">
+              <i class="fas fa-store" style="font-size:1.8rem;color:var(--accent)"></i>
             </div>
-          </article>
-
-          <!-- Service: Job -->
-          <article class="card" data-key="job" role="article" aria-labelledby="srv-job-title">
-            <a href="https://eeuez-job.com/"><div class="logo">
-              <img src="/assets/eeuez-job.png" alt="Logo EEUEZ-Job" width="48" height="48" loading="lazy">
-            </div></a>
             <div>
-              <h3 id="srv-job-title">EEUEZ-Job</h3>
-              <p class="srv-desc">Portail de recrutement : matching, gestion des candidatures et outils RH pour entreprises.</p>
+              <h3 id="service1-title">EEUEZ-Market</h3>
+              <p>Marketplace e-commerce pour PME et commerces locaux. Gestion de stocks, commandes, livraisons et paiements intégrés.</p>
             </div>
-          </article>
+          </div>
 
-          <!-- Service: Menu -->
-          <article class="card" data-key="menu" role="article" aria-labelledby="srv-menu-title">
-            <a href="https://eeuez-menu.com/"><div class="logo">
-              <img src="/assets/eeuez-menu.png" alt="Logo EEUEZ-Menu" width="48" height="48" loading="lazy">
-            </div></a>
-            <div>
-              <h3 id="srv-menu-title">EEUEZ-Menu</h3>
-              <p class="srv-desc">Menus QR, commandes en ligne et intégration WhatsApp pour améliorer la conversion en restauration.</p>
+          <div class="card" role="article" aria-labelledby="service2-title">
+            <div class="logo" aria-hidden="true">
+              <i class="fas fa-briefcase" style="font-size:1.8rem;color:var(--accent)"></i>
             </div>
-          </article>
+            <div>
+              <h3 id="service2-title">EEUEZ-Job</h3>
+              <p>Plateforme de recrutement et mise en relation entre employeurs et talents. CV, entretiens et contrats digitalisés.</p>
+            </div>
+          </div>
 
-          <!-- Service: Zevaba -->
-          <article class="card" data-key="zevaba" role="article" aria-labelledby="srv-zevaba-title">
-            <a href="https://zevaba.com/"><div class="logo">
-              <img src="/assets/zevaba.png" alt="Logo Zevaba" width="48" height="48" loading="lazy">
-            </div></a>
-            <div>
-              <h3 id="srv-zevaba-title">Zevaba</h3>
-              <p class="srv-desc">Réseau social pour intellectuels : partage, débats et monétisation du savoir.</p>
+          <div class="card" role="article" aria-labelledby="service3-title">
+            <div class="logo" aria-hidden="true">
+              <i class="fas fa-qrcode" style="font-size:1.8rem;color:var(--accent)"></i>
             </div>
-          </article>
+            <div>
+              <h3 id="service3-title">EEUEZ-Menu</h3>
+              <p>Solution de menus digitaux avec QR code pour restaurateurs. Commandes directes, paiements en ligne et gestion de tables.</p>
+            </div>
+          </div>
+
+          <div class="card" role="article" aria-labelledby="service4-title">
+            <div class="logo" aria-hidden="true">
+              <i class="fas fa-truck" style="font-size:1.8rem;color:var(--accent)"></i>
+            </div>
+            <div>
+              <h3 id="service4-title">Zevaba</h3>
+              <p>Service de livraison express intra-ville. Suivi en temps réel, notifications et gestion optimisée des tournées.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -382,26 +715,30 @@
     <!-- How it works -->
     <section id="how" class="alt reveal" aria-labelledby="how-title">
       <div class="container">
-        <h2 id="how-title" style="color:var(--text)">Comment ça marche</h2>
-        <p class="lead" style="color:var(--muted)">Simple, modulaire et extensible — trois étapes pour lancer votre service.</p>
-
-        <div class="steps" style="margin-top:12px">
-          <div class="step">
+        <h2 id="how-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Comment ça marche</h2>
+        <div class="steps">
+          <div class="step" role="article" aria-labelledby="step1-title">
             <div class="num">1</div>
-            <h3>Plan & Design</h3>
-            <p>Atelier produit, maquettage et validation UX/UI. On respecte les habitudes, on travaille l’excellence.</p>
+            <h3 id="step1-title">Analyse & Conception</h3>
+            <p>Étude de vos besoins et conception d'une solution sur mesure adaptée à votre secteur d'activité.</p>
           </div>
 
-          <div class="step">
+          <div class="step" role="article" aria-labelledby="step2-title">
             <div class="num">2</div>
-            <h3>Build & Integrate</h3>
-            <p>APIs robustes, intégration paiements et messagerie (WhatsApp, SMS).</p>
+            <h3 id="step2-title">Développement & Tests</h3>
+            <p>Création de votre produit avec des technologies modernes et tests rigoureux pour garantir la qualité.</p>
           </div>
 
-          <div class="step">
+          <div class="step" role="article" aria-labelledby="step3-title">
             <div class="num">3</div>
-            <h3>Scale & Support</h3>
-            <p>Déploiement, supervision 24/7 et optimisation coûts grâce à l’IA.</p>
+            <h3 id="step3-title">Déploiement & Formation</h3>
+            <p>Installation et configuration de votre solution, accompagnée d'une formation complète de votre équipe.</p>
+          </div>
+
+          <div class="step" role="article" aria-labelledby="step4-title">
+            <div class="num">4</div>
+            <h3 id="step4-title">Support & Maintenance</h3>
+            <p>Assistance technique continue et mises à jour régulières pour garantir le bon fonctionnement de votre solution.</p>
           </div>
         </div>
       </div>
@@ -410,13 +747,14 @@
     <!-- Partners -->
     <section id="partners" class="reveal" aria-labelledby="partners-title">
       <div class="container">
-        <h2 id="partners-title">Ils nous font confiance</h2>
-        <p class="lead">Partenaires, supermarchés et restaurants qui utilisent nos solutions.</p>
-        <div class="partners" style="margin-top:12px">
-          <div class="partner"><img src="/assets/partners/dovv.svg" alt="Dovv" width="84" loading="lazy"></div>
-          <div class="partner"><img src="/assets/partners/santa-lucia.svg" alt="Santa Lucia" width="84" loading="lazy"></div>
-          <div class="partner"><img src="/assets/partners/renaprov.svg" alt="Renaprov" width="84" loading="lazy"></div>
-          <div class="partner"><img src="/assets/partners/localbiz.svg" alt="Local Biz" width="84" loading="lazy"></div>
+        <h2 id="partners-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Nos partenaires</h2>
+        <div class="partners">
+          <div class="partner" aria-label="Partenaire 1">DOVV</div>
+          <div class="partner" aria-label="Partenaire 2">Sannta-Lucia</div>
+          <div class="partner" aria-label="Partenaire 3">RENAPROV</div>
+          <div class="partner" aria-label="Partenaire 4">Local Bizz</div>
+          <!-- <div class="partner" aria-label="Partenaire 5">Partenaire 5</div>
+          <div class="partner" aria-label="Partenaire 6">Partenaire 6</div> -->
         </div>
       </div>
     </section>
@@ -424,63 +762,137 @@
     <!-- Pricing -->
     <section id="pricing" class="alt reveal" aria-labelledby="pricing-title">
       <div class="container">
-        <h2 id="pricing-title">Forfaits</h2>
-        <p class="lead" style="color:var(--muted)">Des offres claires: du MVP pour commencer aux plans sur-mesure pour les entreprises.</p>
-
+        <h2 id="pricing-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Nos forfaits</h2>
         <div class="pricing">
-          <div class="plan card" style="min-width:0">
-            <h3>Starter</h3>
-            <p class="lead">Idéal pour tester — présence en ligne, 5 produits, QR codes.</p>
-            <p style="font-weight:800;font-size:20px">5 000 FCFA/mois</p>
-            <p><a href="#contact" class="btn cta">Souscrire</a></p>
+          <div class="plan" role="article" aria-labelledby="plan1-title">
+            <h3 id="plan1-title">Starter</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">50 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Idéal pour les petites entreprises</p>
+            <ul style="text-align:left;margin:20px 0;padding-left:20px">
+              <li>1 produit au choix</li>
+              <li>Support par email</li>
+              <li>5GB de stockage</li>
+              <li>Mises à jour mensuelles</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost" aria-label="Choisir le forfait Starter">Choisir</a>
           </div>
 
-          <div class="plan card" style="min-width:0">
-            <h3>Growth</h3>
-            <p class="lead">Pour boutiques en pleine croissance — intégration paiements & livraison.</p>
-            <p style="font-weight:800;font-size:20px">Sur devis</p>
-            <p><a href="#contact" class="btn cta">Demander un devis</a></p>
+          <div class="plan popular" role="article" aria-labelledby="plan2-title">
+            <h3 id="plan2-title">Business</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">120 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Parfait pour les entreprises en croissance</p>
+            <ul style="text-align:left;margin:20px 0;padding-left:20px">
+              <li>2 produits au choix</li>
+              <li>Support prioritaire 24/7</li>
+              <li>20GB de stockage</li>
+              <li>Mises à jour hebdomadaires</li>
+              <li>Formation incluse</li>
+            </ul>
+            <a href="#contact" class="btn cta" aria-label="Choisir le forfait Business">Choisir</a>
           </div>
 
-          <div class="plan card" style="min-width:0">
-            <h3>Entreprise</h3>
-            <p class="lead">Personnalisé: API, SLA, support 24/7, optimisation AI.</p>
-            <p style="font-weight:800;font-size:20px">Contact commercial</p>
-            <p><a href="#contact" class="btn cta">Contact</a></p>
+          <div class="plan" role="article" aria-labelledby="plan3-title">
+            <h3 id="plan3-title">Enterprise</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">250 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Solution complète pour grandes entreprises</p>
+            <ul style="text-align:left;margin:20px 0;padding-left:20px">
+              <li>Tous les produits</li>
+              <li>Support dédié 24/7</li>
+              <li>Stockage illimité</li>
+              <li>Mises à jour quotidiennes</li>
+              <li>Formation avancée</li>
+              <li>Intégrations personnalisées</li>
+            </ul>
+            <a href="#contact" class="btn btn-ghost" aria-label="Choisir le forfait Enterprise">Choisir</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials - AMÉLIORÉ -->
     <section id="testimonials" class="reveal" aria-labelledby="testimonials-title">
       <div class="container">
-        <h2 id="testimonials-title">Avis</h2>
-        <p class="lead">Ce que nos clients disent — la confiance, pas les slogans.</p>
-
-        <div class="testimonials" style="margin-top:12px">
-          <div class="quote card">
-            <p style="font-style:italic">"EEUEZ a transformé notre prise de commande — simple, rapide et fiable."</p>
-            <p style="font-weight:800;margin-top:8px">— Restaurant La Terrasse</p>
+        <h2 id="testimonials-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Ce qu'ils en disent</h2>
+        <div class="testimonials">
+          <div class="card testimonial-card" role="article" aria-labelledby="testimonial1-title">
+            <div class="testimonial-avatar" aria-hidden="true">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="quote">
+              <p id="testimonial1-title">"EEUEZ-Menu a révolutionné notre restaurant. Les clients adorent commander via QR code et notre efficacité a augmenté de 40%."</p>
+            </div>
+            <div class="testimonial-author">Marie K.</div>
+            <div class="testimonial-role">Gérante, Le Bon Goût</div>
           </div>
 
-          <div class="quote card">
-            <p style="font-style:italic">"Matching candidat / poste jamais aussi précis."</p>
-            <p style="font-weight:800;margin-top:8px">— Recruteur, Renaprov</p>
+          <div class="card testimonial-card" role="article" aria-labelledby="testimonial2-title">
+            <div class="testimonial-avatar" aria-hidden="true">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="quote">
+              <p id="testimonial2-title">"Grâce à EEUEZ-Market, j'ai pu digitaliser mon commerce et atteindre de nouveaux clients. L'interface est intuitive et le support réactif."</p>
+            </div>
+            <div class="testimonial-author">Paul D.</div>
+            <div class="testimonial-role">Propriétaire, Maison Paul</div>
+          </div>
+
+          <div class="card testimonial-card" role="article" aria-labelledby="testimonial3-title">
+            <div class="testimonial-avatar" aria-hidden="true">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="quote">
+              <p id="testimonial3-title">"Zevaba a considérablement optimisé notre service de livraison. Les livreurs sont plus efficaces et les clients satisfaits du suivi en temps réel."</p>
+            </div>
+            <div class="testimonial-author">Sophie T.</div>
+            <div class="testimonial-role">Directrice, Express Delivery</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Blog -->
+    <!-- Blog/Ressources - AMÉLIORÉ -->
     <section id="blog" class="alt reveal" aria-labelledby="blog-title">
       <div class="container">
-        <h2 id="blog-title" style="color:var(--text)">Ressources & Blog</h2>
-        <p class="lead" style="color:var(--muted)">Articles, guides et études de cas pour aider nos utilisateurs et booster votre référencement.</p>
+        <h2 id="blog-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Ressources</h2>
+        <p style="text-align:center;max-width:700px;margin:0 auto 40px">Découvrez nos articles et ressources pour vous aider à tirer le meilleur parti de nos solutions.</p>
+        
         <div class="blog-grid">
-          <article class="card"> <h4>Comment lancer un marketplace</h4><p class="lead">Checklist technique & business.</p></article>
-          <article class="card"> <h4>Menus QR qui convertissent</h4><p class="lead">Optimisation menu & parcours client.</p></article>
-          <article class="card"> <h4>Optimiser le matching des CV</h4><p class="lead">Data, scoring et tests A/B.</p></article>
+          <div class="card blog-card" role="article" aria-labelledby="blog1-title">
+            <div class="blog-image" aria-hidden="true">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="blog-content">
+              <h3 id="blog1-title">Comment augmenter vos ventes avec EEUEZ-Market</h3>
+              <p>Découvrez les stratégies efficaces pour maximiser votre visibilité et augmenter vos conversions sur notre plateforme.</p>
+              <a href="#" class="btn btn-ghost" aria-label="Lire l'article Comment augmenter vos ventes avec EEUEZ-Market">Lire l'article</a>
+            </div>
+          </div>
+
+          <div class="card blog-card" role="article" aria-labelledby="blog2-title">
+            <div class="blog-image" aria-hidden="true">
+              <i class="fas fa-qrcode"></i>
+            </div>
+            <div class="blog-content">
+              <h3 id="blog2-title">5 avantages des menus digitaux pour votre restaurant</h3>
+              <p>Les menus QR code transforment l'expérience client et optimisent la gestion de votre établissement.</p>
+              <a href="#" class="btn btn-ghost" aria-label="Lire l'article 5 avantages des menus digitaux pour votre restaurant">Lire l'article</a>
+            </div>
+          </div>
+
+          <div class="card blog-card" role="article" aria-labelledby="blog3-title">
+            <div class="blog-image" aria-hidden="true">
+              <i class="fas fa-truck"></i>
+            </div>
+            <div class="blog-content">
+              <h3 id="blog3-title">Optimisez votre logistique avec Zevaba</h3>
+              <p>Comment notre solution de livraison peut réduire vos coûts et améliorer la satisfaction client.</p>
+              <a href="#" class="btn btn-ghost" aria-label="Lire l'article Optimisez votre logistique avec Zevaba">Lire l'article</a>
+            </div>
+          </div>
+        </div>
+        
+        <div style="text-align:center;margin-top:40px">
+          <a href="#" class="btn cta" aria-label="Voir toutes les ressources">Voir toutes les ressources</a>
         </div>
       </div>
     </section>
@@ -488,217 +900,239 @@
     <!-- Contact -->
     <section id="contact" class="reveal" aria-labelledby="contact-title">
       <div class="container">
-        <h2 id="contact-title">Contact</h2>
-        <p class="lead">Prêt à lancer ? Laisse-nous un message — on prépare le plan, tu gardes la vision.</p>
+        <h2 id="contact-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Contactez-nous</h2>
+        <div class="contact-grid">
+          <div class="contact-card card" role="form" aria-labelledby="contact-form-title">
+            <h3 id="contact-form-title">Envoyez-nous un message</h3>
+            <form id="contactForm" aria-label="Formulaire de contact">
+              <label for="name">Nom complet</label>
+              <input type="text" id="name" name="name" required aria-required="true" placeholder="Votre nom">
+              
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required aria-required="true" placeholder="votre@email.com">
+              
+              <label for="company">Entreprise (optionnel)</label>
+              <input type="text" id="company" name="company" placeholder="Nom de votre entreprise">
+              
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" required aria-required="true" placeholder="Comment pouvons-nous vous aider?"></textarea>
+              
+              <button type="submit" class="btn cta" style="margin-top:16px" aria-label="Envoyer le message">Envoyer</button>
+            </form>
+          </div>
 
-        <div class="contact-grid" style="margin-top:12px">
-          <form class="contact-card card" onsubmit="handleForm(event)" aria-label="Formulaire de contact">
-            <label for="name">Nom</label>
-            <input id="name" name="name" required />
-
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
-
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5"></textarea>
-
-            <p><button type="submit" class="btn cta">Envoyer</button></p>
-          </form>
-
-          <aside class="contact-card card" style="display:flex;flex-direction:column;gap:10px;justify-content:center">
-            <div><strong>Adresse</strong><br/>Mobile Essos, Yaoundé, Cameroun</div>
-            <div><strong>Téléphone</strong><br/>+237 6XX XXX XXX</div>
-            <div><strong>Email</strong><br/>contact@eeuez.com</div>
-            <div style="margin-top:8px"><a href="#" style="color:var(--accent);font-weight:700">Demander une démo</a></div>
-          </aside>
+          <div class="contact-info card" role="complementary" aria-labelledby="contact-info-title">
+            <h3 id="contact-info-title">Nos coordonnées</h3>
+            <p><strong><i class="fas fa-map-marker-alt" style="margin-right:10px"></i> Adresse</strong><br>Yaoundé, Cameroun</p>
+            <p><strong><i class="fas fa-phone" style="margin-right:10px"></i> Téléphone</strong><br>+237 XXX XXX XXX</p>
+            <p><strong><i class="fas fa-envelope" style="margin-right:10px"></i> Email</strong><br>contact@eeuez.com</p>
+            <p><strong><i class="fas fa-clock" style="margin-right:10px"></i> Horaires</strong><br>Lun - Ven: 9h - 18h</p>
+            
+            <div class="social-links">
+              <a href="#" aria-label="Visitez notre page Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="Visitez notre compte Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" aria-label="Visitez notre page LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="Visitez notre compte Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Contactez-nous sur WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-
   </main>
 
-  <footer>
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:18px 0">
-      <div>
-        <strong>EEUEZ</strong><br/>
-        © <span id="year"></span> — Conception & Développement
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+        <div class="brand" aria-hidden="true">
+          <img src="/assets/logo.png" alt="Logo EEUEZ" />
+          <div class="name">EEUEZ</div>
+        </div>
+        <nav aria-label="Navigation pied de page">
+          <ul style="display:flex;gap:16px;flex-wrap:wrap">
+            <li><a href="#hero">Accueil</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#pricing">Forfaits</a></li>
+            <li><a href="#blog">Ressources</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
       </div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <a href="#">Mentions légales</a>
-        <a href="#">Politique de confidentialité</a>
+      <hr style="border:none;height:1px;background:rgba(0,0,0,0.1);margin:20px 0">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+        <p style="margin:0;color:var(--muted)">&copy; 2023 EEUEZ. Tous droits réservés.</p>
+        <div>
+          <a href="#" style="margin-right:16px;color:var(--muted)">Mentions légales</a>
+          <a href="#" style="color:var(--muted)">Politique de confidentialité</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <script>
-    // --- Small progressive enhancements ---
-    document.getElementById('year').textContent = new Date().getFullYear();
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" aria-label="Retour en haut de la page">
+    <i class="fas fa-arrow-up"></i>
+  </button>
 
-    // Smooth internal scroll (works for desktop & mobile)
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        const href = a.getAttribute('href');
-        if(href.length>1){
-          const target = document.querySelector(href);
-          if(target){
+  <script>
+    // DOM elements
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const langToggle = document.getElementById('langToggle');
+    const langToggleMobile = document.getElementById('langToggleMobile');
+    const burgerBtn = document.getElementById('burgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+    const backToTop = document.getElementById('backToTop');
+    const header = document.querySelector('header');
+    const contactForm = document.getElementById('contactForm');
+
+    // Theme toggle
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeLabel();
+    }
+
+    function updateThemeLabel() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const themeLabel = document.getElementById('themeLabel');
+      const themeMobileLabel = document.getElementById('themeMobileLabel');
+      themeLabel.textContent = currentTheme === 'light' ? 'Clair' : 'Sombre';
+      themeMobileLabel.textContent = currentTheme === 'light' ? 'Clair' : 'Sombre';
+    }
+
+    // Language toggle
+    function toggleLanguage() {
+      const currentLang = document.documentElement.getAttribute('lang') || 'fr';
+      const newLang = currentLang === 'fr' ? 'en' : 'fr';
+      document.documentElement.setAttribute('lang', newLang);
+      localStorage.setItem('lang', newLang);
+      updateLangLabel();
+    }
+
+    function updateLangLabel() {
+      const currentLang = document.documentElement.getAttribute('lang') || 'fr';
+      const langLabel = document.getElementById('langLabel');
+      const langMobileLabel = document.getElementById('langMobileLabel');
+      langLabel.textContent = currentLang === 'fr' ? 'FR' : 'EN';
+      langMobileLabel.textContent = currentLang === 'fr' ? 'FR' : 'EN';
+    }
+
+    // Mobile menu
+    function toggleMobileMenu() {
+      const isExpanded = burgerBtn.getAttribute('aria-expanded') === 'true';
+      burgerBtn.setAttribute('aria-expanded', !isExpanded);
+      burgerBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+      mobileMenu.setAttribute('aria-hidden', isExpanded);
+      overlay.classList.toggle('open');
+      document.body.style.overflow = isExpanded ? '' : 'hidden';
+    }
+
+    // Back to top
+    function toggleBackToTop() {
+      if (window.scrollY > 300) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Header scroll effect
+    function toggleHeaderScroll() {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+
+    // Form submission
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      alert('Merci pour votre message! Nous vous répondrons rapidement.');
+      contactForm.reset();
+    }
+
+    // Reveal animations
+    function revealElements() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 150;
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('in');
+        }
+      }
+    }
+
+    // Initialize
+    function init() {
+      // Load saved preferences
+      const savedTheme = localStorage.getItem('theme');
+      const savedLang = localStorage.getItem('lang');
+      if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+      if (savedLang) document.documentElement.setAttribute('lang', savedLang);
+      
+      updateThemeLabel();
+      updateLangLabel();
+      
+      // Event listeners
+      themeToggle.addEventListener('click', toggleTheme);
+      themeToggleMobile.addEventListener('click', toggleTheme);
+      langToggle.addEventListener('click', toggleLanguage);
+      langToggleMobile.addEventListener('click', toggleLanguage);
+      burgerBtn.addEventListener('click', toggleMobileMenu);
+      overlay.addEventListener('click', toggleMobileMenu);
+      window.addEventListener('scroll', toggleBackToTop);
+      window.addEventListener('scroll', toggleHeaderScroll);
+      window.addEventListener('scroll', revealElements);
+      backToTop.addEventListener('click', scrollToTop);
+      contactForm.addEventListener('submit', handleFormSubmit);
+      
+      // Initial calls
+      toggleBackToTop();
+      toggleHeaderScroll();
+      revealElements();
+      
+      // Focus management for mobile menu
+      const mobileMenuLinks = mobileMenu.querySelectorAll('a, button');
+      const firstMenuItem = mobileMenuLinks[0];
+      const lastMenuItem = mobileMenuLinks[mobileMenuLinks.length - 1];
+      
+      mobileMenu.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          toggleMobileMenu();
+          burgerBtn.focus();
+        }
+        
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === firstMenuItem) {
             e.preventDefault();
-            target.scrollIntoView({behavior:'smooth',block:'start'});
-            closeMobileMenu();
+            lastMenuItem.focus();
+          } else if (!e.shiftKey && document.activeElement === lastMenuItem) {
+            e.preventDefault();
+            firstMenuItem.focus();
           }
         }
       });
-    });
-
-    // Reveal on scroll (IntersectionObserver)
-    const io = new IntersectionObserver((entries, obs)=>{
-      entries.forEach(en=>{
-        if(en.isIntersecting){ en.target.classList.add('in'); obs.unobserve(en.target); }
-      });
-    },{threshold:0.12});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    // MOBILE MENU: use class toggles (robust)
-    const burger = document.getElementById('burgerBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    function openMobileMenu(){
-      mobileMenu.classList.add('open');
-      mobileMenu.setAttribute('aria-hidden','false');
-      burger.setAttribute('aria-expanded','true');
-      document.documentElement.classList.add('menu-open');
-      // trap scroll
-      document.body.style.overflow = 'hidden';
-      // focus first link for accessibility
-      requestAnimationFrame(()=> mobileMenu.querySelector('a')?.focus());
     }
-    function closeMobileMenu(){
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden','true');
-      burger.setAttribute('aria-expanded','false');
-      document.documentElement.classList.remove('menu-open');
-      document.body.style.overflow = '';
+
+    // Run initialization when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
     }
-    burger && burger.addEventListener('click', ()=>{
-      const isOpen = mobileMenu.classList.contains('open');
-      (isOpen ? closeMobileMenu() : openMobileMenu());
-    });
-    // close on ESC
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') closeMobileMenu();
-      if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
-    });
-    // close on resize (desktop)
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth > 760) closeMobileMenu();
-    });
-    // close on outside click (when open)
-    document.addEventListener('click', (e)=>{
-      if(mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !burger.contains(e.target)){
-        closeMobileMenu();
-      }
-    });
-
-    // Simple form handler (demo)
-    function handleForm(e){
-      e.preventDefault();
-      const name = e.target.name.value || '—';
-      const email = e.target.email.value || '—';
-      // TODO: POST to server endpoint
-      alert(`Merci ${name} — nous avons reçu ton message. Nous reviendrons à ${email}`);
-      e.target.reset();
-    }
-    window.handleForm = handleForm;
-
-    // THEME toggle (light/dark/auto) - robust
-    const themeToggle = document.getElementById('themeToggle');
-    const themeLabel = document.getElementById('themeLabel');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
-    const themeMobileLabel = document.getElementById('themeMobileLabel');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    function applyTheme(mode){
-      if(mode === 'auto'){
-        document.documentElement.removeAttribute('data-theme');
-        themeLabel.textContent = 'Auto';
-        themeMobileLabel && (themeMobileLabel.textContent = 'Auto');
-      } else {
-        document.documentElement.setAttribute('data-theme', mode);
-        themeLabel.textContent = mode === 'dark' ? 'Dark' : 'Light';
-        themeMobileLabel && (themeMobileLabel.textContent = mode === 'dark' ? 'Dark' : 'Light');
-      }
-      localStorage.setItem('eeuez:theme', mode);
-      themeToggle?.setAttribute('aria-pressed', String(mode !== 'auto'));
-      themeToggleMobile?.setAttribute('aria-pressed', String(mode !== 'auto'));
-    }
-    // initial
-    (function initTheme(){
-      const stored = localStorage.getItem('eeuez:theme') || 'auto';
-      if(stored === 'dark' || (stored === 'auto' && prefersDark)) document.documentElement.setAttribute('data-theme','dark');
-      applyTheme(stored);
-    })();
-    themeToggle && themeToggle.addEventListener('click', ()=>{
-      const cur = localStorage.getItem('eeuez:theme') || 'auto';
-      const next = cur === 'auto' ? (prefersDark ? 'light' : 'dark') : (cur === 'dark' ? 'light' : (cur === 'light' ? 'auto' : 'auto'));
-      applyTheme(next);
-    });
-    themeToggleMobile && themeToggleMobile.addEventListener('click', ()=> themeToggle?.click());
-
-    // LANGUAGE toggle (FR/EN) — swap texts for services
-    const langToggle = document.getElementById('langToggle');
-    const langToggleMobile = document.getElementById('langToggleMobile');
-    const langLabel = document.getElementById('langLabel');
-    const langMobileLabel = document.getElementById('langMobileLabel');
-
-    const textBundle = {
-      fr: {
-        servicesTitle: "Nos services",
-        servicesLead: "Des plateformes pensées pour l'usage réel : commerce, recrutement, menus digitaux et communauté intellectuelle.",
-        market: {title:"EEUEZ-Market",desc:"Marketplace qui connecte clients, marchands et coursiers — gestion des vitrines, panier, paiements & livraison optimisée."},
-        job: {title:"EEUEZ-Job",desc:"Portail de recrutement : matching, gestion des candidatures et outils RH pour entreprises."},
-        menu: {title:"EEUEZ-Menu",desc:"Menus QR, commandes en ligne et intégration WhatsApp pour améliorer la conversion en restauration."},
-        zevaba: {title:"Zevaba",desc:"Réseau social pour intellectuels : partage, débats et monétisation du savoir."}
-      },
-      en: {
-        servicesTitle: "Our Services",
-        servicesLead: "Platforms built for real use: marketplace, recruitment, digital menus and intellectual community.",
-        market: {title:"EEUEZ-Market",desc:"Marketplace connecting customers, merchants and couriers — storefronts, cart, payments & optimized delivery."},
-        job: {title:"EEUEZ-Job",desc:"Recruitment portal: matching, applicant management and HR tools for companies."},
-        menu: {title:"EEUEZ-Menu",desc:"QR menus, online orders and WhatsApp integration to boost restaurant conversions."},
-        zevaba: {title:"Zevaba",desc:"Social network for intellectuals: sharing, debates and monetizing knowledge."}
-      }
-    };
-
-    function applyLang(l){
-      const b = textBundle[l] || textBundle.fr;
-      document.getElementById('services-title').textContent = b.servicesTitle;
-      document.getElementById('services-lead').textContent = b.servicesLead;
-      document.querySelectorAll('[data-key]').forEach(card=>{
-        const key = card.getAttribute('data-key');
-        const titleEl = card.querySelector('h3');
-        const descEl = card.querySelector('.srv-desc');
-        if(titleEl && descEl && b[key]){
-          titleEl.textContent = b[key].title;
-          descEl.textContent = b[key].desc;
-        }
-      });
-      langLabel.textContent = l.toUpperCase();
-      langMobileLabel && (langMobileLabel.textContent = l.toUpperCase());
-      localStorage.setItem('eeuez:lang', l);
-      langToggle.setAttribute('aria-pressed', l !== 'fr');
-      langToggleMobile && langToggleMobile.setAttribute('aria-pressed', l !== 'fr');
-    }
-    (function initLang(){ const stored = localStorage.getItem('eeuez:lang') || 'fr'; applyLang(stored); })();
-    langToggle && langToggle.addEventListener('click', ()=> {
-      const cur = localStorage.getItem('eeuez:lang') || 'fr';
-      applyLang(cur === 'fr' ? 'en' : 'fr');
-    });
-    langToggleMobile && langToggleMobile.addEventListener('click', ()=> langToggle?.click());
-
-    // Accessibility: keyboard-focus detection
-    document.body.addEventListener('keydown', (e)=>{
-      if(e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing');
-    });
-
-    // Close mobile menu when navigating to anchor (already handled by smooth scroll)
   </script>
 </body>
 </html>
-
