@@ -205,6 +205,57 @@
       visibility: visible;
     }
 
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--card);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      z-index: 200;
+      max-width: 400px;
+      width: 90%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .modal.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal h3 {
+      margin: 0 0 20px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .modal input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.1);
+      background: var(--card);
+      color: var(--text);
+      font-family: inherit;
+    }
+    .modal input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(74,144,226,0.1);
+    }
+    .modal .btn {
+      width: 100%;
+      text-align: center;
+    }
+    .modal .btn-cancel {
+      background: transparent;
+      border: 1px solid rgba(0,0,0,0.1);
+      margin-top: 10px;
+    }
+
     /* Hero */
     main{padding-top:calc(var(--nav-height) + 22px)}
     .hero{padding: 6rem 0 4rem; position:relative;overflow:hidden}
@@ -297,7 +348,20 @@
 
     /* Pricing */
     .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:20px}
-    .plan { text-align: center; padding: 30px; position: relative; }
+    .plan {
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.03);
+      transition: transform .22s var(--ease), box-shadow .22s var(--ease);
+    }
+    .plan:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
     .plan.popular::before {
       content: 'Populaire';
       position: absolute;
@@ -309,6 +373,22 @@
       border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 700;
+    }
+    .plan ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+    .plan li {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    .plan li i {
+      margin-right: 8px;
+      color: var(--accent);
     }
 
     /* Testimonials & blog - AMÉLIORÉ */
@@ -629,6 +709,17 @@
     </div>
   </div>
 
+  <!-- Modal for name input -->
+  <div id="orderModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h3 id="modal-title">Finaliser votre commande</h3>
+    <form id="modalForm" aria-label="Formulaire de commande">
+      <label for="customerName">Votre nom complet</label>
+      <input type="text" id="customerName" name="customerName" required aria-required="true" placeholder="Entrez votre nom">
+      <button type="submit" class="btn cta" aria-label="Confirmer la commande">Confirmer</button>
+      <button type="button" class="btn btn-cancel" id="cancelModal" aria-label="Annuler">Annuler</button>
+    </form>
+  </div>
+
   <main id="main-content">
     <!-- Hero -->
     <section id="hero" class="hero alt reveal" aria-labelledby="hero-title">
@@ -671,7 +762,6 @@
         <div class="services">
           <div class="card" role="article" aria-labelledby="service1-title">
             <div class="logo" aria-hidden="true">
-              <!-- <i class="fas fa-store" style="font-size:1.8rem;color:var(--accent)"></i> -->
               <img src="./assets/eeuez-market.png" alt="">
             </div>
             <div>
@@ -679,13 +769,11 @@
               <p>Marketplace e-commerce pour PME et commerces locaux. Gestion de stocks, commandes, livraisons et paiements intégrés.</p>
               <a href="https://eeuez-market.com/" class="btn cta" style="margin: 10px 0 0 0 ;">Découvrir</a>
             </div>
-            
           </div>
 
           <div class="card" role="article" aria-labelledby="service2-title">
             <div class="logo" aria-hidden="true">
-              <!-- <i class="fas fa-briefcase" style="font-size:1.8rem;color:var(--accent)"></i> -->
-               <img src="./assets/eeuez-job.png" alt="">
+              <img src="./assets/eeuez-job.png" alt="">
             </div>
             <div>
               <h3 id="service2-title">EEUEZ-Job</h3>
@@ -696,8 +784,7 @@
 
           <div class="card" role="article" aria-labelledby="service3-title">
             <div class="logo" aria-hidden="true">
-              <!-- <i class="fas fa-qrcode" style="font-size:1.8rem;color:var(--accent)"></i> -->
-               <img src="./assets/eeuez-menu.png" alt="">
+              <img src="./assets/eeuez-menu.png" alt="">
             </div>
             <div>
               <h3 id="service3-title">EEUEZ-Menu</h3>
@@ -708,12 +795,12 @@
 
           <div class="card" role="article" aria-labelledby="service4-title">
             <div class="logo" aria-hidden="true">
-              <!-- <i class="fas fa-truck" style="font-size:1.8rem;color:var(--accent)"></i> -->
-               <img src="./assets/zevaba.png" alt="">
+              <img src="./assets/zevaba.png" alt="">
             </div>
             <div>
-            <h3 id="service4-title">Zevaba</h3>
-<p>Zevaba est un réseau social intellectuel, un espace où les esprits curieux se rencontrent pour partager des idées, approfondir des savoirs et bâtir une communauté centrée sur la connaissance.</p> class="btn cta" style="margin: 10px 0 0 0 ;">Découvrir</a>
+              <h3 id="service4-title">Zevaba</h3>
+              <p>Zevaba est un réseau social intellectuel, un espace où les esprits curieux se rencontrent pour partager des idées, approfondir des savoirs et bâtir une communauté centrée sur la connaissance.</p>
+              <a href="#" class="btn cta" style="margin: 10px 0 0 0 ;">Découvrir</a>
             </div>
           </div>
         </div>
@@ -761,8 +848,6 @@
           <div class="partner" aria-label="Partenaire 2">Sannta-Lucia</div>
           <div class="partner" aria-label="Partenaire 3">RENAPROV</div>
           <div class="partner" aria-label="Partenaire 4">Local Bizz</div>
-          <!-- <div class="partner" aria-label="Partenaire 5">Partenaire 5</div>
-          <div class="partner" aria-label="Partenaire 6">Partenaire 6</div> -->
         </div>
       </div>
     </section>
@@ -770,49 +855,84 @@
     <!-- Pricing -->
     <section id="pricing" class="alt reveal" aria-labelledby="pricing-title">
       <div class="container">
-        <h2 id="pricing-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Nos forfaits</h2>
+        <h2 id="pricing-title" style="text-align:center;margin-bottom:40px;font-size:2.2rem;font-weight:800">Nos forfaits Communication & Gestion Digitale</h2>
         <div class="pricing">
-          
-          <div class="plan" role="article" aria-labelledby="plan1-title" style="border-radius: var(--radius);box-shadow: 0 6px 15px 7px rgba(15, 23, 42, 0.06);transition: transform .22s var(--ease), box-shadow .22s var(--ease);border: 1px solid rgba(0, 0, 0, 0.03);">
+          <div class="plan" role="article" aria-labelledby="plan1-title">
             <h3 id="plan1-title">Starter</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">5 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Pour les petites structures qui veulent tester le digital.</p>
+            <ul>
+              <li><i class="fas fa-check"></i>1 visuel design (flyer ou post) par semaine</li>
+              <li><i class="fas fa-check"></i>Mise en ligne et gestion d’une page sociale (Facebook ou Instagram)</li>
+              <li><i class="fas fa-check"></i>Réponse basique aux messages clients</li>
+              <li><i class="fas fa-check"></i>Rapport mensuel d’engagement</li>
+            </ul>
+            <button class="btn cta" data-plan="Starter" aria-label="Choisir le forfait Starter">Choisir</button>
+          </div>
+
+          <div class="plan" role="article" aria-labelledby="plan2-title">
+            <h3 id="plan2-title">Essentiel</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">20 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Idéal pour les TPE qui veulent booster leur visibilité.</p>
+            <ul>
+              <li><i class="fas fa-check"></i>3 visuels créatifs par semaine (flyers, posts, stories)</li>
+              <li><i class="fas fa-check"></i>1 mini-vidéo (motion design / promo courte) par mois</li>
+              <li><i class="fas fa-check"></i>Gestion quotidienne d’une page sociale (Facebook ou Instagram)</li>
+              <li><i class="fas fa-check"></i>Optimisation basique de la page (bio, contacts, branding)</li>
+              <li><i class="fas fa-check"></i>Rapport de performance avec recommandations</li>
+            </ul>
+            <button class="btn cta" data-plan="Essentiel" aria-label="Choisir le forfait Essentiel">Choisir</button>
+          </div>
+
+          <div class="plan" role="article" aria-labelledby="plan3-title">
+            <h3 id="plan3-title">Croissance</h3>
             <div style="font-size:2.5rem;font-weight:800;margin:10px 0">50 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
-            <p>Idéal pour les petites entreprises</p>
-            <ul style="text-align:left;margin:20px 0;padding-left:20px">
-              <li>1 produit au choix</li>
-              <li>Support par email</li>
-              <li>5GB de stockage</li>
-              <li>Mises à jour mensuelles</li>
+            <p>Pour les entreprises qui veulent se démarquer avec une identité forte.</p>
+            <ul>
+              <li><i class="fas fa-check"></i>5 visuels par semaine (flyers, carrousels, stories)</li>
+              <li><i class="fas fa-check"></i>2 vidéos promo / mois</li>
+              <li><i class="fas fa-check"></i>Gestion et animation de 2 réseaux sociaux</li>
+              <li><i class="fas fa-check"></i>Création de campagnes sponsorisées (budget pub non inclus)</li>
+              <li><i class="fas fa-check"></i>Shooting photo pro (10 photos traitées)</li>
+              <li><i class="fas fa-check"></i>Conception d’un mini-site vitrine (.vercel.app offert)</li>
+              <li><i class="fas fa-check"></i>Suivi et reporting détaillé</li>
             </ul>
-            <a href="#contact" class="btn btn-ghost" aria-label="Choisir le forfait Starter">Choisir</a>
+            <button class="btn cta" data-plan="Croissance" aria-label="Choisir le forfait Croissance">Choisir</button>
           </div>
 
-          <div class="plan popular" role="article" aria-labelledby="plan2-title" style="border-radius: var(--radius);box-shadow: 0 6px 15px 7px rgba(15, 23, 42, 0.06);transition: transform .22s var(--ease), box-shadow .22s var(--ease);border: 1px solid rgba(0, 0, 0, 0.03);">
-            <h3 id="plan2-title">Business</h3>
-            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">120 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
-            <p>Parfait pour les entreprises en croissance</p>
-            <ul style="text-align:left;margin:20px 0;padding-left:20px">
-              <li>2 produits au choix</li>
-              <li>Support prioritaire 24/7</li>
-              <li>20GB de stockage</li>
-              <li>Mises à jour hebdomadaires</li>
-              <li>Formation incluse</li>
+          <div class="plan popular" role="article" aria-labelledby="plan4-title">
+            <h3 id="plan4-title">Premium</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">75 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Pour booster les ventes avec un branding puissant.</p>
+            <ul>
+              <li><i class="fas fa-check"></i>7 visuels par semaine (posts, stories, flyers)</li>
+              <li><i class="fas fa-check"></i>4 vidéos professionnelles (promo, storytelling) / mois</li>
+              <li><i class="fas fa-check"></i>Shooting photo pro (20 photos traitées)</li>
+              <li><i class="fas fa-check"></i>Gestion et animation de 3 réseaux sociaux</li>
+              <li><i class="fas fa-check"></i>Création site web vitrine ou e-commerce simple</li>
+              <li><i class="fas fa-check"></i>Gestion de campagnes sponsorisées (budget pub non inclus)</li>
+              <li><i class="fas fa-check"></i>Service client digital (réponse rapide aux prospects)</li>
+              <li><i class="fas fa-check"></i>Analyse mensuelle + plan stratégique</li>
             </ul>
-            <a href="#contact" class="btn cta" aria-label="Choisir le forfait Business">Choisir</a>
+            <button class="btn cta" data-plan="Premium" aria-label="Choisir le forfait Premium">Choisir</button>
           </div>
 
-          <div class="plan" role="article" aria-labelledby="plan3-title" style="border-radius: var(--radius);box-shadow: 0 6px 15px 7px rgba(15, 23, 42, 0.06);transition: transform .22s var(--ease), box-shadow .22s var(--ease);border: 1px solid rgba(0, 0, 0, 0.03);">
-            <h3 id="plan3-title">Enterprise</h3>
-            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">250 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
-            <p>Solution complète pour grandes entreprises</p>
-            <ul style="text-align:left;margin:20px 0;padding-left:20px">
-              <li>Tous les produits</li>
-              <li>Support dédié 24/7</li>
-              <li>Stockage illimité</li>
-              <li>Mises à jour quotidiennes</li>
-              <li>Formation avancée</li>
-              <li>Intégrations personnalisées</li>
+          <div class="plan" role="article" aria-labelledby="plan5-title">
+            <h3 id="plan5-title">Élite</h3>
+            <div style="font-size:2.5rem;font-weight:800;margin:10px 0">100 000 FCFA<span style="font-size:1rem;color:var(--muted)">/mois</span></div>
+            <p>Offre “clé en main” pour une communication haut de gamme.</p>
+            <ul>
+              <li><i class="fas fa-check"></i>Visuels illimités (designs premium)</li>
+              <li><i class="fas fa-check"></i>8 vidéos créatives par mois (promo, interview, reels)</li>
+              <li><i class="fas fa-check"></i>Shooting photo complet (30 photos pro)</li>
+              <li><i class="fas fa-check"></i>Gestion et animation multi-réseaux (Facebook, Instagram, TikTok, LinkedIn, WhatsApp Business)</li>
+              <li><i class="fas fa-check"></i>Conception site web professionnel avec design personnalisé</li>
+              <li><i class="fas fa-check"></i>Création de flyers imprimables & affiches publicitaires</li>
+              <li><i class="fas fa-check"></i>Campagnes sponsorisées gérées et optimisées (budget pub non inclus)</li>
+              <li><i class="fas fa-check"></i>Community management + service client digital 7/7</li>
+              <li><i class="fas fa-check"></i>Reporting complet avec stratégies d’évolution</li>
             </ul>
-            <a href="#contact" class="btn btn-ghost" aria-label="Choisir le forfait Enterprise">Choisir</a>
+            <button class="btn cta" data-plan="Élite" aria-label="Choisir le forfait Élite">Choisir</button>
           </div>
         </div>
       </div>
@@ -996,6 +1116,10 @@
     const backToTop = document.getElementById('backToTop');
     const header = document.querySelector('header');
     const contactForm = document.getElementById('contactForm');
+    const orderModal = document.getElementById('orderModal');
+    const modalForm = document.getElementById('modalForm');
+    const cancelModal = document.getElementById('cancelModal');
+    const planButtons = document.querySelectorAll('.plan .btn');
 
     // Theme toggle
     function toggleTheme() {
@@ -1040,6 +1164,40 @@
       mobileMenu.setAttribute('aria-hidden', isExpanded);
       overlay.classList.toggle('open');
       document.body.style.overflow = isExpanded ? '' : 'hidden';
+    }
+
+    // Modal handling
+    let selectedPlan = '';
+    function openModal(plan) {
+      selectedPlan = plan;
+      orderModal.classList.add('open');
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('customerName').focus();
+    }
+
+    function closeModal() {
+      orderModal.classList.remove('open');
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+      modalForm.reset();
+      selectedPlan = '';
+    }
+
+    function handleOrderSubmit(e) {
+      e.preventDefault();
+      const customerName = document.getElementById('customerName').value.trim();
+      if (!customerName) {
+        alert('Veuillez entrer votre nom.');
+        return;
+      }
+
+      const message = encodeURIComponent(
+        `Bonjour EEUEZ,\n\nJe souhaite commander le forfait "${selectedPlan}".\nNom: ${customerName}\nDate: ${new Date().toLocaleDateString('fr-FR')}\n\nMerci de me contacter pour finaliser ma commande.`
+      );
+      const whatsappUrl = `https://wa.me/+237XXXXXXXXX?text=${message}`;
+      window.open(whatsappUrl, '_blank');
+      closeModal();
     }
 
     // Back to top
@@ -1107,7 +1265,13 @@
       window.addEventListener('scroll', revealElements);
       backToTop.addEventListener('click', scrollToTop);
       contactForm.addEventListener('submit', handleFormSubmit);
+      modalForm.addEventListener('submit', handleOrderSubmit);
+      cancelModal.addEventListener('click', closeModal);
       
+      planButtons.forEach(button => {
+        button.addEventListener('click', () => openModal(button.dataset.plan));
+      });
+
       // Initial calls
       toggleBackToTop();
       toggleHeaderScroll();
@@ -1131,6 +1295,27 @@
           } else if (!e.shiftKey && document.activeElement === lastMenuItem) {
             e.preventDefault();
             firstMenuItem.focus();
+          }
+        }
+      });
+
+      // Focus management for modal
+      const modalInputs = orderModal.querySelectorAll('input, button');
+      const firstModalItem = modalInputs[0];
+      const lastModalItem = modalInputs[modalInputs.length - 1];
+
+      orderModal.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+        
+        if (e.key === 'Tab') {
+          if (e.shiftKey && document.activeElement === firstModalItem) {
+            e.preventDefault();
+            lastModalItem.focus();
+          } else if (!e.shiftKey && document.activeElement === lastModalItem) {
+            e.preventDefault();
+            firstModalItem.focus();
           }
         }
       });
