@@ -639,57 +639,16 @@
 <body>
   <a class="skip-link" href="#main-content">Aller au contenu</a>
 
-  <header>
-    <div class="nav container" role="navigation" aria-label="Navigation principale">
-      <div class="brand" aria-hidden="false">
-        <img src="/assets/logo.png" alt="Logo EEUEZ" />
-        <div class="name">EEUEZ</div>
-      </div>
+ <header>
+  <div class="nav container">
+    <!-- Marque -->
+    <a href="/" class="brand">
+      <img src="/assets/logo.png" alt="EEUEZ Logo">
+      <span class="name">EEUEZ</span>
+    </a>
 
-      <!-- Desktop nav (hidden on small screens via CSS) -->
-      <nav aria-label="Menu principal" id="desktopNav">
-        <ul>
-          <li><a href="#hero">Accueil</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#how">Fonctionnement</a></li>
-          <li><a href="#partners">Partenaires</a></li>
-          <li><a href="#pricing">Forfaits</a></li>
-          <li><a href="#testimonials">Avis</a></li>
-          <li><a href="#blog">Ressources</a></li>
-          <li><a href="#contact" class="cta">Contact</a></li>
-        </ul>
-      </nav>
-
-      <div class="controls" role="group" aria-label="Contrôles">
-        <!-- Language toggle -->
-        <button id="langToggle" class="toggle" aria-pressed="false" title="Basculer la langue">
-          <span class="sr-only">Basculer langue</span>
-          <span id="langLabel">FR</span>
-        </button>
-
-        <!-- Theme toggle -->
-        <button id="themeToggle" class="toggle" aria-pressed="false" title="Basculer le thème">
-          <span class="sr-only">Basculer thème</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.8 1.42-1.42zM1 13h3v-2H1v2zm10-9h2V1h-2v3zm7.66 2.05l1.79-1.8-1.41-1.41-1.8 1.79 1.42 1.42zM17 13h3v-2h-3v2zM12 6a6 6 0 000 12 6 6 0 000-12z"/></svg>
-          <span id="themeLabel">Auto</span>
-        </button>
-
-        <!-- Mobile burger -->
-        <button class="burger" aria-expanded="false" aria-controls="mobileMenu" id="burgerBtn" aria-label="Ouvrir le menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Overlay for mobile menu -->
-  <div class="overlay" id="overlay"></div>
-
-  <!-- Mobile menu panel - AMÉLIORÉ -->
-  <div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Menu mobile">
-    <nav aria-label="Menu mobile principal">
+    <!-- Navigation desktop -->
+    <nav id="desktopNav">
       <ul>
         <li><a href="#hero">Accueil</a></li>
         <li><a href="#services">Services</a></li>
@@ -702,12 +661,78 @@
       </ul>
     </nav>
 
-    <div class="mobile-footer">
-      <button id="langToggleMobile" class="toggle" title="Langue"><span id="langMobileLabel">FR</span></button>
-      <button id="themeToggleMobile" class="toggle" title="Thème"><span id="themeMobileLabel">Auto</span></button>
-      <div style="margin-left:auto"><a href="#contact" class="btn cta">Contact</a></div>
+    <!-- Contrôles -->
+    <div class="controls">
+      <!-- Toggle langue -->
+      <button id="langToggle" class="toggle" aria-pressed="false">
+        <span id="langLabel">FR</span>
+      </button>
+
+      <!-- Toggle thème -->
+      <button id="themeToggle" class="toggle" aria-pressed="false">
+        <i class="fas fa-moon"></i>
+      </button>
+
+      <!-- Hamburger -->
+      <button class="burger" id="burgerBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Ouvrir le menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
+</header>
+
+<!-- Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Menu mobile -->
+<div class="mobile-menu" id="mobileMenu">
+  <nav>
+    <ul>
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">Fonctionnement</a></li>
+      <li><a href="#partners">Partenaires</a></li>
+      <li><a href="#pricing">Forfaits</a></li>
+      <li><a href="#testimonials">Avis</a></li>
+      <li><a href="#blog">Ressources</a></li>
+      <li><a href="#contact" class="cta">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="mobile-footer">
+    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+  </div>
+</div>
+
+<script>
+  const burger = document.getElementById("burgerBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const overlay = document.getElementById("overlay");
+
+  burger.addEventListener("click", () => {
+    burger.classList.toggle("open");
+    mobileMenu.classList.toggle("open");
+    overlay.classList.toggle("open");
+  });
+
+  overlay.addEventListener("click", () => {
+    burger.classList.remove("open");
+    mobileMenu.classList.remove("open");
+    overlay.classList.remove("open");
+  });
+
+  // Fermer menu après clic sur un lien
+  document.querySelectorAll(".mobile-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      burger.classList.remove("open");
+      mobileMenu.classList.remove("open");
+      overlay.classList.remove("open");
+    });
+  });
+</script>
 
   <!-- Modal for name input -->
   <div id="orderModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -1330,3 +1355,4 @@
   </script>
 </body>
 </html>
+
